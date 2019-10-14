@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int main () {
+  vector<int> n(3);
+  cin >> n.at(0) >> n.at(1) >> n.at(2);
+  sort(n.begin(), n.end());
+  cout << n.at(0) + n.at(1) + 10 * n.at(2);
+}
+
+/*
+3つの数字の大小関係を，
+$$A \leq B \leq C$$
+と仮定しても一般性を失わない。
+
+パネルの並べ方は次の$6$通り：
+\begin{eqnarray}
+    &[A][B][+][C] \label{a} \\
+    &[A][C][+][B] \label{a_} \\
+    &[B][A][+][C] \label{b} \\
+    &[B][C][+][A] \label{b_} \\
+    &[C][A][+][B] \label{c} \\
+    &[C][B][+][A] \label{c_}
+\end{eqnarray}
+ここで，(\ref{a})と(\ref{a_})，(\ref{b})と(\ref{b_})，(\ref{c})と(\ref{c_})
+が表す数式の値がそれぞれ互いに等しいことに注意すれば，ありうる数式の値は次の$3$通り：
+\begin{eqnarray}
+    &10A + B + C \\
+    &A + 10B + C \\
+    &A + B + 10C
+\end{eqnarray}
+並べ替え不等式より，最大値は$$A + B + 10C$$である。
+*/
