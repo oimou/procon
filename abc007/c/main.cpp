@@ -63,6 +63,7 @@ int main () {
   points neighbors {start};
   start->min = 0;
 
+  // lookup neighbors and fix their minimum steps
   for (int step = 0; neighbors.size() > 0; step++) {
     points next_neighbors;
 
