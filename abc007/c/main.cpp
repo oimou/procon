@@ -1,7 +1,9 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 #include <string>
 #include <algorithm>
+#include <utility>
 
 using namespace std;
 
@@ -11,8 +13,8 @@ struct point {
   int min;
 };
 
-using points = vector<point *>;
 using points_2d = vector<vector<point>>;
+using point_and_step = pair<point *, int>;
 
 point * is_point_unresolved (points_2d & board, int x, int y) {
   if (0 <= y && y < board.size() && 0 <= x && x < board.at(y).size()) {
@@ -22,8 +24,7 @@ point * is_point_unresolved (points_2d & board, int x, int y) {
   return nullptr;
 }
 
-points lookup (points_2d & board, point * p, int step) {
-  points neighbors;
+void lookup (points_2d & board, queue<point_and_step> & que, point * p, int step) {
   point * unresolved;
   int pos[4][2] = {
     p->x,     p->y - 1,
@@ -35,11 +36,9 @@ points lookup (points_2d & board, point * p, int step) {
   for (int i = 0; i < 4; i++) {
     if (unresolved = is_point_unresolved(board, pos[i][0], pos[i][1])) {
       unresolved->min = step + 1;
-      neighbors.push_back(unresolved);
+      que.push(make_pair(unresolved, step + 1));
     }
   }
-
-  return neighbors;
 }
 
 int main () {
@@ -60,28 +59,18 @@ int main () {
 
   point * start = &board.at(sy - 1).at(sx - 1);
   point * goal  = &board.at(gy - 1).at(gx - 1);
-  points neighbors {start};
+  queue<point_and_step> que;
+
   start->min = 0;
+  que.push(make_pair(start, 0));
 
-  // lookup neighbors and fix their minimum steps
-  for (int step = 0; neighbors.size() > 0; step++) {
-    points next_neighbors;
+  while (!que.empty()) {
+    point_and_step p = que.front();
+    que.pop();
 
-    for_each(
-      neighbors.begin(),
-      neighbors.end(),
-      [&](point * p) {
-        points res = lookup(board, p, step);
+    if (p.first == goal) break;
 
-        next_neighbors.insert(
-          next_neighbors.end(),
-          res.begin(),
-          res.end()
-        );
-      }
-    );
-
-    neighbors = next_neighbors;
+    lookup(board, que, p.first, p.second);
   };
 
   cout << goal->min << endl;
