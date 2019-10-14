@@ -2,3 +2,6 @@ in
 in.*
 a.out
 program
+*.aux
+*.pdf
+*.gz
