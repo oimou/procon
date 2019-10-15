@@ -5,3 +5,6 @@ program
 *.aux
 *.pdf
 *.gz
+*.fdb_latexmk
+*.fls
+*.xdv
