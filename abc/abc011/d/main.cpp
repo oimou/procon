@@ -36,12 +36,6 @@ int main () {
   MPInteger const N_ = factorial(N);
   MPInteger sum = 0;
 
-  // cout << "k = " << k << endl;
-  // cout << "l = " << l << endl;
-  // cout << "N = " << N << endl;
-  // cout << "N! = " << N_ << endl;
-  // cout << "0 <= k <= " << k_max << endl;
-
   for (Integer k_ = 0; k_ <= k_max; k_++) {
     Integer const l_ = (N - k - 2 * k_ - l) / 2;
     MPInteger const a_ = factorial(k + k_);
@@ -49,20 +43,10 @@ int main () {
     MPInteger const c_ = factorial(l + l_);
     MPInteger const d_ = factorial(l_);
     sum += N_ / (a_ * b_ * c_ * d_);
-
-    // cout << "loop: k' = " << k_
-    //      << ", l' = " << l_
-    //      << ", a! = " << a_
-    //      << ", b! = " << b_
-    //      << ", c! = " << c_
-    //      << ", d! = " << d_
-    //      << " (sum = " << sum << ")" << endl;
   }
 
   MPInteger const four_N = mp::pow(MPInteger(4), N);
   MPFloat const answer = MPFloat(sum) / MPFloat(four_N);
 
-  // cout << "sum: " << sum << endl;
-  // cout << "4^N: " << four_N << endl;
   cout << setprecision(16) << answer << endl;
 }
