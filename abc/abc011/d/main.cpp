@@ -32,6 +32,12 @@ int main () {
 
   Integer const k = X / D;
   Integer const l = Y / D;
+
+  if (!(N >= k + l)) {
+    cout << 0 << endl;
+    return 0;
+  }
+
   Integer const k_max = (N - (k + l)) / 2;
   MPInteger const N_ = factorial(N);
   MPInteger sum = 0;
