@@ -1,0 +1,20 @@
+\documentclass{article}
+\usepackage{parskip}
+\usepackage{amsmath}
+\begin{document}
+
+入力を$n$，求める出力を$n'$とおくと，$i = 0, 1, 2$に対して$a_i, b_i$が1または9であって$a_i + b_i = 10$であるようなある整数列$\{a_n\}, \{b_n\}$が存在し，
+\begin{eqnarray*}
+    n  &=& a_2 \times 10^2 + a_1 \times 10 + a_0 \\
+    n' &=& b_2 \times 10^2 + b_1 \times 10 + b_0
+\end{eqnarray*}
+と表せるので，
+\begin{eqnarray*}
+    n + n' &=& (a_2 + b_2) \times 10^2 + (a_1 + b_1) \times 10 + (a_0 + b_0) \\
+           &=& 10 \times 10^2 + 10 \times 10 + 10 \\
+           &=& 1110
+\end{eqnarray*}
+したがって，
+$$n' = 1110 - n$$
+
+\end{document}
