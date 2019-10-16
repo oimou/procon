@@ -33,7 +33,7 @@ int main () {
   Integer const k = X / D;
   Integer const l = Y / D;
 
-  if (!(N >= k + l)) {
+  if (!(N >= k + l) || !((N - (k + l)) % 2 == 0)) {
     cout << 0 << endl;
     return 0;
   }
