@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage{parskip}
+\usepackage{amsmath}
+\begin{document}
+
+点$(X, Y)$を$P$とおく。
+移動の対称性により，$P$は$X \geq 0, Y \geq 0$の範囲にあるとしても一般性を失わない。
+以下，この前提のもとで考える。
+
+$P$に到達できる移動方法が存在するためには，$X$も$Y$も$D$で割り切れることが必要である。
+このとき，ある非負整数$k, l$が存在し，次が成り立つ。
+\begin{eqnarray*}
+    X &=& kD \\
+    Y &=& lD
+\end{eqnarray*}
+よって，原点から$P$までのマンハッタン距離は$X + Y = (k + l)D$と表すことができる。
+このことと，$N$回で移動できるマンハッタン距離の最大値は$ND$であることから，
+\begin{equation}
+    \label{N_k_l}
+    N \geq k + l
+\end{equation}
+が必要である。
+
+ここで，
+\begin{quote}
+    $X$軸に平行に$+D, -D$だけ移動する回数をそれぞれ$a, b$ \\
+    $Y$軸に平行に$+D, -D$だけ移動する回数をそれぞれ$c, d$
+\end{quote}
+とおく。
+
+ちょうど$N$回で$P$に到達するような移動の仕方は，非負整数$k', l'$を用いて表すと，
+\begin{quote}
+    $X$軸の正方向に$k + k'$回，負方向に$k'$回だけ移動 \\
+    $Y$軸の正方向に$l + l'$回，負方向に$l'$回だけ移動
+\end{quote}
+するような場合なので，
+$$a = k + k',\ b = k',\ c = l + l',\ d = l'$$
+である。このような移動の仕方を「ゴールできる移動の仕方」と呼ぶことにする。
+ただし，$k', l'$は
+$$N = a + b + c + d = (k + k') + k' + (l + l') + l'$$
+を満たすので，
+$$l' = \frac{1}{2} (N - k - 2k' - l)$$
+が成り立ち，$0 \leq k' \leq N, 0 \leq l' \leq N$に注意すれば，$k'$の範囲は，
+\begin{equation}
+    \label{k_range}
+    0 \leq k' \leq \frac{1}{2} (N - (k + l))
+\end{equation}
+であり，(\ref{N_k_l})の制約のもとでこれを満たす$k'$が存在する。
+
+「ゴールできる移動の仕方」の個数は，$k'$を固定すると，
+\[
+    {}_N C_a \times {}_{N-a} C_b \times {}_{N-a-b} C_c = \cfrac{N!}{a!b!c!d!}
+\]
+である。
+$k'$は(\ref{k_range})の範囲をくまなく動くので，「ゴールできる移動の仕方」の個数は，
+\[
+    \sum_{k' = 0}^{ \frac{1}{2} (N - (k + l)) } \cfrac{N!}{a!b!c!d!}
+\]
+である。
+$P$までの移動の仕方は$4^N$通りであり，これらの起こり方は同様に確からしいから，求める確率は，
+\[
+    \cfrac{1}{4^N} \sum_{k' = 0}^{ \frac{1}{2} (N - (k + l)) } \cfrac{N!}{a!b!c!d!}
+\]
+である。
+
+\end{document}
