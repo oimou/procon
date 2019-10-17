@@ -1,0 +1,61 @@
+\documentclass{article}
+\usepackage{parskip}
+\usepackage{amsmath}
+
+\newcommand{\argmin}{\mathop{\rm arg~min}\limits}
+
+\begin{document}
+
+簡単のため，$x_i = p$とおく。
+
+西端を原点とし西から東に進む向きを正として$x$軸をとる。
+$x = p$なる点を$P_i$とおき，$x = s_j, x = t_j$なる点をそれぞれ$S_j, T_j$とおく。
+
+同種の寺社のうち最初に通過するもののみを「訪れた」とみなすことにすると，
+始点$P_i$を出発して神社1個と寺1個を訪れるような移動の仕方は，
+\begin{quote}
+    i) $P_i$から進む向き 2通り \\
+    ii) 1番目に訪れる寺社の種類の選び方 2通り \\
+    iii) 1番目に訪れた寺社から進む向き 2通り
+\end{quote}
+より，計$2^3 = 8$通りである。
+
+始点に最も近い神社，寺の座標はそれぞれ$p$の関数であることから，次のように表せる：
+\begin{quote}
+    始点以東で最も近い神社，寺の座標をそれぞれ$f_+(p),\ g_+(p)$ \\
+    始点以西で最も近い神社，寺の座標をそれぞれ$f_-(p),\ g_-(p)$ \\
+    始点から最も近い神社，寺の座標をそれぞれ$f(p),\ g(p)$
+\end{quote}
+
+ただし，始点以東，以西に寺社が存在しない場合は$f_\pm(p) = \pm\infty,\ g_\pm(p) = \pm\infty$（複号同順）とする。
+
+[1] i),iii)で同方向に進むとき
+\begin{quote}
+    ii)について，始点に最も近い寺社を1番目に訪れるしかないから，
+    求める最小の移動距離は，
+    \begin{equation}
+        \label{expr1}
+        \max\{ |f_\pm(p) - p|,\ |g_\pm(p) - p| \} \ (\mbox{複号同順})
+    \end{equation}
+\end{quote}
+
+[2] i),iii)で逆方向に進むとき
+\begin{quote}
+ii)について，1番目に訪れる寺社の選び方は2通りあるが，
+始点と1番目に訪れる寺社との間に2番目に訪れる寺社がないことに注意すれば，
+移動距離は
+\begin{eqnarray*}
+    2 \times (\mbox{始点と1番目に訪れる寺社との距離}) \\
+           + (\mbox{始点と2番目に訪れる寺社との距離})
+\end{eqnarray*}
+と表せるので，始点から最も近い寺社に1番目に訪れると移動距離が最小となる。
+したがって，求める最小の移動距離は，
+\begin{equation}
+    \label{expr2}
+    2 \min\{ |f(p) - p|,\ |g(p) - p| \} + \max\{ |f(p) - p|,\ |g(p) - p| \}
+\end{equation}
+\end{quote}
+
+以上より，求める最小の移動距離は(\ref{expr1})と(\ref{expr2})のうち最小のものである。
+
+\end{document}
