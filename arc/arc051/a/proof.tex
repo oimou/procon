@@ -1,0 +1,49 @@
+\documentclass{article}
+\usepackage{parskip}
+\usepackage{amsmath}
+\begin{document}
+
+次のように点をとる：
+\begin{eqnarray*}
+    &A(x_1, y_1) \\
+    &P_1(x_2, y_2) \\
+    &P_2(x_3, y_2) \\
+    &P_3(x_3, y_3) \\
+    &P_4(x_2, y_3)
+\end{eqnarray*}
+点$A$を中心とする半径$r$の円$C$の円周および内部が赤く塗られ，
+4点$P_1, P_2, P_3, P_4$の長方形$D$の周および内部が青く塗られ，
+2つの図形の共通部分が紫に塗られる。
+
+2つの図形が一致することはないので，2つの図形の包含関係は次の3通りのいずれかひとつのみが成り立つ。
+\begin{quote}
+    i) $C \subset D$ \\
+    ii) $D \subset C$ \\
+    iii) 上記以外
+\end{quote}
+
+ここで，次の同値関係が成り立つ。
+\begin{eqnarray*}
+    &i) \Longleftrightarrow \mbox{赤い部分が存在しない} \\
+    &ii) \Longleftrightarrow \mbox{青い部分が存在しない}
+\end{eqnarray*}
+
+まず，赤い部分の存在条件i)を考える。
+i)が成り立つのは点$A$が長方形の内部にあって$A$と長方形$D$の各辺との距離がいずれも$r$以上のとき，およびそのときのみであるから，
+\[
+    x_2 + r \leq x_1 \leq x_3 - r \ \mbox{かつ} \
+    y_2 + r \leq y_1 \leq y_3 - r
+\]
+と同値である。
+
+次に，青い部分の存在条件i)を考える。
+赤い部分が存在しないならば青い部分が存在するから，
+赤い部分が存在するという前提のもとで青い部分の存在条件ii)を考えればよい。
+
+ii)が成り立つのは点$A$と長方形の各頂点との距離の最大値が$r$以下のとき，およびそのときのみであるから，
+\[
+    \max \{ AP_1, AP_2, AP_3, AP_4 \} \leq r
+\]
+と同値である。
+
+\end{document}
