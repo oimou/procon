@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage{parskip}
+\usepackage{amsmath}
+\begin{document}
+
+問題文に与えられた「よい文字列」がみたす条件を箇条書きの上から順にi), ii), iii)とおく。
+$l = \mathrm{lcm}(N, M)$ とおいて，
+「よい文字列」が存在するならば $|X| = l$ のときに存在することを示す。
+
+よい文字列が存在するとき，これを$X'$とおくと，
+$|X'|$は$N$でも$M$でも割り切れるから，$|X'| = kl$なる非負整数$k$が存在する。
+
+$NM = \mathrm{gcd}(N, M) \times \mathrm{lcm}(N, M)$により，
+\begin{eqnarray*}
+    \frac{l}{N} = \frac{M}{\mathrm{gcd}(N, M)} \hspace{15pt} (= M' \mbox{とおく}) \\
+    \frac{l}{M} = \frac{N}{\mathrm{gcd}(N, M)} \hspace{15pt} (= N' \mbox{とおく})
+\end{eqnarray*}
+であるから，$M'$と$N'$は互いに素である。
+$M', N'$を用いて条件ii), iii)を表すと，
+\begin{eqnarray*}
+    X'\ \mbox{の}\ 1,\ kM'+1,\ 2kM'+1,\ \ldots ,\ (N-1)kM'+1\ \mbox{番目の連結は}\ S \\
+    X'\ \mbox{の}\ 1,\ kN'+1,\ 2kN'+1,\ \ldots ,\ (M-1)kN'+1\ \mbox{番目の連結は}\ T
+\end{eqnarray*}
+となる。
+
+文字列$S, T$をなす文字の位置，すなわち$1 \leq i \leq N - 1,\ 1 \leq j \leq M - 1$に対する
+$(i - 1)kM' + 1,\ (j - 1)kN' + 1$の値をそれぞれ$M', N'$で割った余りがすべて1であることに注意すると，
+中国剰余定理により，文字の位置は$M'N'$ごとに唯一つ重なる。
+
+% もう少し厳密に
+
+% このあとがわからない
+
+% 最後に，Xに対してではなくS,Tに対する条件が導かれると思うので，それを実装に利用する
+
+\end{document}
