@@ -1,36 +1,81 @@
 \documentclass{article}
 \usepackage{parskip}
 \usepackage{amsmath}
+\usepackage{amssymb}
 \begin{document}
 
-問題文に与えられた「よい文字列」がみたす条件を箇条書きの上から順にi), ii), iii)とおく。
-$l = \mathrm{lcm}(N, M)$ とおいて，
-「よい文字列」が存在するならば $|X| = l$ のときに存在することを示す。
+問題文に与えられた「よい文字列」がみたす条件を上から順にi), ii), iii)とおき，
+$l = \mathrm{lcm}(N, M)$ とおく。
 
-よい文字列が存在するとき，これを$X'$とおくと，
-$|X'|$は$N$でも$M$でも割り切れるから，$|X'| = kl$なる非負整数$k$が存在する。
+まず，次を示す。
+\begin{eqnarray}
+    \label{prop2}
+    &\mbox{「よい文字列」が存在するならば，その長さは$l$以上である} \\
+    \label{prop1}
+    &\mbox{「よい文字列」が存在するならば，その長さが$l$のときにも存在する}
+\end{eqnarray}
+
+よい文字列が存在するとき，これを$Y$とおくと，
+条件i)により，正整数$k$を用いて$|Y| = kl$と表せることが必要である。
+したがって(\ref{prop2})が成り立つ。
 
 $NM = \mathrm{gcd}(N, M) \times \mathrm{lcm}(N, M)$により，
 \begin{eqnarray*}
     \frac{l}{N} = \frac{M}{\mathrm{gcd}(N, M)} \hspace{15pt} (= M' \mbox{とおく}) \\
     \frac{l}{M} = \frac{N}{\mathrm{gcd}(N, M)} \hspace{15pt} (= N' \mbox{とおく})
 \end{eqnarray*}
-であるから，$M'$と$N'$は互いに素である。
+が成り立ち，$M'$と$N'$は互いに素である。
 $M', N'$を用いて条件ii), iii)を表すと，
 \begin{eqnarray*}
-    X'\ \mbox{の}\ 1,\ kM'+1,\ 2kM'+1,\ \ldots ,\ (N-1)kM'+1\ \mbox{番目の連結は}\ S \\
-    X'\ \mbox{の}\ 1,\ kN'+1,\ 2kN'+1,\ \ldots ,\ (M-1)kN'+1\ \mbox{番目の連結は}\ T
+    Y\ \mbox{の}\ 1,\ kM'+1,\ 2kM'+1,\ \ldots ,\ (N-1)kM'+1\ \mbox{番目の連結は}\ S \\
+    Y\ \mbox{の}\ 1,\ kN'+1,\ 2kN'+1,\ \ldots ,\ (M-1)kN'+1\ \mbox{番目の連結は}\ T
 \end{eqnarray*}
 となる。
 
-文字列$S, T$をなす文字の位置，すなわち$1 \leq i \leq N - 1,\ 1 \leq j \leq M - 1$に対する
-$(i - 1)kM' + 1,\ (j - 1)kN' + 1$の値をそれぞれ$M', N'$で割った余りがすべて1であることに注意すると，
-中国剰余定理により，文字の位置は$M'N'$ごとに唯一つ重なる。
+ここで，文字列$Y$を"圧縮"して，長さ$l$の新たな文字列$X$をつくることを考える。
+$Y, X$の$n$文字目の文字をそれぞれ$y_n, x_n$とおくと，
+$1 \leq i < N,\ 1 \leq j < M$なるすべての整数$i, j$に対して
+\begin{equation}
+    \label{compression}
+    \begin{cases}
+        y_{(i - 1)kM' + 1} = x_{(i - 1)M' + 1} \\
+        y_{(j - 1)kN' + 1} = x_{(j - 1)N' + 1}
+    \end{cases}
+\end{equation}
+を満たす文字列$X$が存在するならば$X$もまた「よい文字列」であるが，
+\begin{eqnarray}
+    (i - 1)kM' + 1 = (j - 1)kN' + 1
+        &\Longleftrightarrow& (i - 1)kM' = (j - 1)kN' \nonumber \\
+        &\Longleftrightarrow& (i - 1)M' = (j - 1)N' \nonumber \\
+        \label{eq1}
+        &\Longleftrightarrow& (i - 1)M' + 1 = (j - 1)N' + 1
+\end{eqnarray}
+により，"圧縮"の前後で文字の一致のしかたは変わらないといえるので，
+(\ref{compression})を満たす$X$が存在する。
+したがって(\ref{prop1})が成り立つ。
 
-% もう少し厳密に
-
-% このあとがわからない
-
-% 最後に，Xに対してではなくS,Tに対する条件が導かれると思うので，それを実装に利用する
+つぎに，$|X| = l$のもとで，$X$が存在するために文字列$S, T$が満たすべき条件を考える。
+(\ref{eq1})と，$M', N'$が互いに素であることから，任意の整数$d$を用いて
+\begin{eqnarray}
+    (\ref{eq1})
+    \Longleftrightarrow \begin{cases}
+        i = N'd + 1 \\
+        j = M'd + 1
+    \end{cases}
+    \nonumber
+\end{eqnarray}
+が成り立つ。ただし，$i, j$の範囲に関する条件から，$d$の範囲は
+\begin{equation}
+    \label{range_d}
+    0 \leq d < \mathrm{gcd}(N, M)
+\end{equation}
+である。
+したがって，$S, T$の$n$文字目の文字をそれぞれ$s_n, t_n$とおくと，
+$X$が存在するためには，
+\begin{equation}
+    \mbox{(\ref{range_d})を満たす整数$d$によって定まるすべての$i, j$に対して$s_i = t_j$}
+    \nonumber
+\end{equation}
+が必要十分である。
 
 \end{document}
