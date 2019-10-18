@@ -7,3 +7,4 @@ program
 *.fdb_latexmk
 *.fls
 *.xdv
+*.gch
