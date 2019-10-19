@@ -5,6 +5,8 @@
 \usepackage{cases}
 \begin{document}
 
+\section{証明}
+
 点$(X, Y)$を$P$とおく。
 移動の対称性により，$P$は$X \geq 0, Y \geq 0$の範囲にあるとしても一般性を失わない。
 以下，この前提のもとで考える。
@@ -67,27 +69,26 @@ $P$までの移動の仕方は$4^N$通りであり，これらの起こり方は
 \end{equation}
 である。
 
-ところで、一般に次が成り立つ。
 
-\begin{itembox}[l]{パスカルの三角形}
-    非負整数$n, r$に対して、$f(n, r)$を次の漸化式によって定義すれば$f(n, r) = {}_n \mathrm{C}_r$である。
-    \begin{eqnarray*}
-        &f(n, 0) = 1,\ f(n, n) = 1 \\
-        &f(n, r) = f(n-1, r-1) + f(n-1, r) \\
-    \end{eqnarray*}
-\end{itembox}
 
-% どういう論理？
+\section{計算手法に関する証明}
 
-\begin{itembox}[l]{パスカルの三角形の拡張}
-    非負整数$n, r$に対して、$f(n, r)$を次の漸化式によって定義すれば
-    $f(n, r) = \dfrac{{}_n \mathrm{C}_r}{a^n}$である。
-    \begin{eqnarray*}
-        &f(n, 0) = \dfrac{1}{a^n},\ f(n, n) = \dfrac{1}{a^n} \\
-        &f(n, r) = \dfrac{1}{a} \{f(n-1, r-1) + f(n-1, r)\} \\
-    \end{eqnarray*}
-\end{itembox}
-
-% (\ref{answer}) を直接計算するかわりに漸化式を用いると桁数が大きくならずに済む？
+一般に、非負整数$n, r\ (n \geq 2,\ 2 \leq r \leq n - 1)$に対して次が成り立つ：
+\begin{equation*}
+    {}_n \mathrm{C}_r = {}_{n-1} \mathrm{C}_{r-1} + {}_{n-1} \mathrm{C}_{r}
+\end{equation*}
+このことと二項係数の定義から、
+非負整数$s, n, r\ (r \leq n)$に対して$f(n, r) = \dfrac{{}_n \mathrm{C}_r}{s^n}$とおくと、
+次の漸化式が成り立つ。
+\begin{eqnarray*}
+    &f(n, 0) = \dfrac{1}{s^n},\ f(n, n) = \dfrac{1}{s^n} \\
+    &f(n, r) = \dfrac{1}{s} \{f(n-1, r-1) + f(n-1, r)\} \\
+\end{eqnarray*}
+したがって(\ref{answer})は、$s = 4$として、
+\begin{equation*}
+    \sum_{k' = 0}^{ \frac{1}{2} (N - (k + l)) }
+    \{ f(N, a) \times f(N-a, b) \times f(N-a-b, c) \}
+\end{equation*}
+である。
 
 \end{document}

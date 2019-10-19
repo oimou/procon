@@ -1,6 +1,6 @@
 in
 in.*
-a.out
+*.out
 program
 *.aux
 *.gz
