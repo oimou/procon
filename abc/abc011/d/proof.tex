@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage{parskip}
 \usepackage{amsmath}
+\usepackage{ascmac}
+\usepackage{cases}
 \begin{document}
 
 点$(X, Y)$を$P$とおく。
@@ -59,9 +61,33 @@ $k'$は(\ref{k_range})の範囲をくまなく動くので，「ゴールでき�
 \]
 である。
 $P$までの移動の仕方は$4^N$通りであり，これらの起こり方は同様に確からしいから，求める確率は，
-\[
+\begin{equation}
+    \label{answer}
     \cfrac{1}{4^N} \sum_{k' = 0}^{ \frac{1}{2} (N - (k + l)) } \cfrac{N!}{a!b!c!d!}
-\]
+\end{equation}
 である。
+
+ところで、一般に次が成り立つ。
+
+\begin{itembox}[l]{パスカルの三角形}
+    非負整数$n, r$に対して、$f(n, r)$を次の漸化式によって定義すれば$f(n, r) = {}_n \mathrm{C}_r$である。
+    \begin{eqnarray*}
+        &f(n, 0) = 1,\ f(n, n) = 1 \\
+        &f(n, r) = f(n-1, r-1) + f(n-1, r) \\
+    \end{eqnarray*}
+\end{itembox}
+
+% どういう論理？
+
+\begin{itembox}[l]{パスカルの三角形の拡張}
+    非負整数$n, r$に対して、$f(n, r)$を次の漸化式によって定義すれば
+    $f(n, r) = \dfrac{{}_n \mathrm{C}_r}{a^n}$である。
+    \begin{eqnarray*}
+        &f(n, 0) = \dfrac{1}{a^n},\ f(n, n) = \dfrac{1}{a^n} \\
+        &f(n, r) = \dfrac{1}{a} \{f(n-1, r-1) + f(n-1, r)\} \\
+    \end{eqnarray*}
+\end{itembox}
+
+% (\ref{answer}) を直接計算するかわりに漸化式を用いると桁数が大きくならずに済む？
 
 \end{document}
