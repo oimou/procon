@@ -19,76 +19,77 @@ $P$に到達できる移動方法が存在するためには，$X$も$Y$も$D$�
 \end{eqnarray*}
 よって，原点から$P$までのマンハッタン距離は$X + Y = (k + l)D$と表すことができる。
 このことと，$N$回で移動できるマンハッタン距離の最大値は$ND$であることから，
-\begin{equation}
-    \label{N_k_l}
+\begin{equation*}
     N \geq k + l
-\end{equation}
+\end{equation*}
 が必要である。
 
-ここで，
-\begin{quote}
-    $X$軸に平行に$+D, -D$だけ移動する回数をそれぞれ$a, b$ \\
-    $Y$軸に平行に$+D, -D$だけ移動する回数をそれぞれ$c, d$
-\end{quote}
-とおく。
-
-ちょうど$N$回で$P$に到達するような移動の仕方は，非負整数$k', l'$を用いて表すと，
-\begin{quote}
-    $X$軸の正方向に$k + k'$回，負方向に$k'$回だけ移動 \\
-    $Y$軸の正方向に$l + l'$回，負方向に$l'$回だけ移動
-\end{quote}
-するような場合なので，
-$$a = k + k',\ b = k',\ c = l + l',\ d = l'$$
-である。このような移動の仕方を「ゴールできる移動の仕方」と呼ぶことにする。
-ただし，$k', l'$は
-$$N = a + b + c + d = (k + k') + k' + (l + l') + l'$$
-を満たすので，
-$$l' = \frac{1}{2} (N - k - 2k' - l)$$
-が成り立ち，このような整数$l'$が存在するためには$N-(k+l)$が偶数であることが必要である。
-この条件のもとで，$0 \leq k' \leq N, 0 \leq l' \leq N$から，$k'$の範囲は，
-\begin{equation}
-    \label{k_range}
-    0 \leq k' \leq \frac{1}{2} (N - (k + l))
-\end{equation}
-であり，(\ref{N_k_l})の制約のもとでこれを満たす$k'$が存在する。
-
-「ゴールできる移動の仕方」の個数は，$k'$を固定すると，
-\[
-    {}_N C_a \times {}_{N-a} C_b \times {}_{N-a-b} C_c = \cfrac{N!}{a!b!c!d!}
-\]
+ここで，$X, Y$軸に平行な移動の回数をそれぞれ$A, B$とおくと，
+\begin{eqnarray*}
+    &N = A + B \\
+    &k \leq A \leq N
+\end{eqnarray*}
 である。
-$k'$は(\ref{k_range})の範囲をくまなく動くので，「ゴールできる移動の仕方」の個数は，
-\[
-    \sum_{k' = 0}^{ \frac{1}{2} (N - (k + l)) } \cfrac{N!}{a!b!c!d!}
-\]
+
+さらに，$+x,\ -x,\ +y,\ -y$方向の移動の回数をそれぞれ$A_+,\ A_-,\ B_+,\ B_-$とおく。
+各軸に平行な移動について "行き過ぎた分は戻らないといけない" ことに注意すれば，
+\begin{eqnarray*}
+    &A = A_+ + A_- \\
+    &B = B_+ + B_- \\
+    &k = A_+ - A_- \\
+    &l = B_+ - B_-
+\end{eqnarray*}
+が成り立つ。
+
+$A$を固定すると，他の方向の移動の回数もすべて決まる。
+$x, y$軸に平行な移動の仕方は互いに独立であり，それぞれの個数は，
+\begin{eqnarray*}
+    {}_A \mathrm{C}_{A_+},\ 
+    {}_B \mathrm{C}_{B_+}
+\end{eqnarray*}
+であるから，固定された$A$に対して，点$P$にちょうど到達する確率は，
+\begin{equation*}
+    \dfrac{{}_A \mathrm{C}_{A_+}}{2^A}
+    \dfrac{{}_B \mathrm{C}_{B_+}}{2^B}
+\end{equation*}
 である。
-$P$までの移動の仕方は$4^N$通りであり，これらの起こり方は同様に確からしいから，求める確率は，
+
+したがって，$A$の固定を解除すると，求める確率は，
 \begin{equation}
     \label{answer}
-    \cfrac{1}{4^N} \sum_{k' = 0}^{ \frac{1}{2} (N - (k + l)) } \cfrac{N!}{a!b!c!d!}
+    \sum_{A}
+    \left(\dfrac{{}_A \mathrm{C}_{A_+}}{2^A}
+    \dfrac{{}_B \mathrm{C}_{B_+}}{2^B}\right)
 \end{equation}
+である。
+ただし，$A_+ = \dfrac{A + k}{2}$なる整数$A_+$が存在するためには
+$A$と$k$の偶奇が一致しなければならないから，
+非負整数$t$を用いて
+\begin{equation*}
+    A = k + 2t
+\end{equation*}
+を満たすことが必要である。
+$t$の範囲は，$A, B$の範囲に注意すれば，
+\begin{equation*}
+    0 \leq t \leq \dfrac{N - (k + l)}{2}
+\end{equation*}
 である。
 
 
 
 \section{計算手法に関する証明}
 
-一般に、非負整数$n, r\ (n \geq 2,\ 2 \leq r \leq n - 1)$に対して次が成り立つ：
+一般に，非負整数$n, r\ (n \geq 2,\ 2 \leq r \leq n - 1)$に対して次が成り立つ：
 \begin{equation*}
     {}_n \mathrm{C}_r = {}_{n-1} \mathrm{C}_{r-1} + {}_{n-1} \mathrm{C}_{r}
 \end{equation*}
-このことと二項係数の定義から、
-非負整数$s, n, r\ (r \leq n)$に対して$f(n, r) = \dfrac{{}_n \mathrm{C}_r}{s^n}$とおくと、
+このことと二項係数の定義から，
+非負整数$s, n, r\ (r \leq n)$に対して$f(n, r) = \dfrac{{}_n \mathrm{C}_r}{s^n}$とおくと，
 次の漸化式が成り立つ。
 \begin{eqnarray*}
     &f(n, 0) = \dfrac{1}{s^n},\ f(n, n) = \dfrac{1}{s^n} \\
     &f(n, r) = \dfrac{1}{s} \{f(n-1, r-1) + f(n-1, r)\} \\
 \end{eqnarray*}
-したがって(\ref{answer})は、$s = 4$として、
-\begin{equation*}
-    \sum_{k' = 0}^{ \frac{1}{2} (N - (k + l)) }
-    \{ f(N, a) \times f(N-a, b) \times f(N-a-b, c) \}
-\end{equation*}
-である。
+このことを用いて，再帰的に確率の値を計算することができる。
 
 \end{document}

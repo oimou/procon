@@ -1,25 +1,25 @@
+#include <cstdio>
 #include <iostream>
+#include <iomanip>
 #include <cmath>
-#include <boost/multiprecision/cpp_int.hpp>
-#include <boost/multiprecision/cpp_bin_float.hpp>
-
-namespace mp = boost::multiprecision;
+#include <vector>
+#define N_MAX 1000
 
 using namespace std;
-using Integer = unsigned long long;
-using MPInteger = mp::cpp_int;
-using MPFloat = mp::cpp_bin_float_quad;
+using Integer = long long;
+using Float = double;
+using Table = vector<vector<Float>>;
 
-MPInteger factorial (Integer n) {
-  MPInteger res = 1;
-  for (Integer i = 1; i <= n; ++i)
-    res *= i;
-  return res;
+Table table = Table(N_MAX + 1, vector<Float>(N_MAX + 1, -1));
+Float f (Integer n, Integer r) {
+  if (table[n][r] != -1) return table[n][r];
+  if (r == 0 || n == r) return table[n][r] = 1 / pow(2, n);
+  if (0 <= r <= n) return table[n][r] = (f(n - 1, r - 1) + f(n - 1, r)) / 2;
+  throw "Invalid arguments";
 }
 
 int main () {
-  Integer N, D;
-  long long X_, Y_;
+  Integer N, D, X_, Y_;
   cin >> N >> D >> X_ >> Y_;
 
   Integer const X = abs(X_);
@@ -32,27 +32,19 @@ int main () {
 
   Integer const k = X / D;
   Integer const l = Y / D;
+  Float sum = 0;
 
-  if (!(N >= k + l) || !((N - (k + l)) % 2 == 0)) {
-    cout << 0 << endl;
-    return 0;
+  printf("N: %d\tk: %d\tl: %d\n", N, k, l);
+
+  for (Integer t = 0; t <= (N - (k + l)) / 2; t++) {
+    Integer const A = k + 2 * t;
+    Integer const B = N - A;
+    Integer const A_plus = (A + k) / 2;
+    Integer const B_plus = (B + l) / 2;
+
+    printf("A: %d\tB: %d\tA+: %d\tB+: %d\t\n", A, B, A_plus, B_plus);
+    sum += f(A, A_plus) * f(B, B_plus);
   }
 
-  Integer const k_max = (N - (k + l)) / 2;
-  MPInteger const N_ = factorial(N);
-  MPInteger sum = 0;
-
-  for (Integer k_ = 0; k_ <= k_max; k_++) {
-    Integer const l_ = (N - k - 2 * k_ - l) / 2;
-    MPInteger const a_ = factorial(k + k_);
-    MPInteger const b_ = factorial(k_);
-    MPInteger const c_ = factorial(l + l_);
-    MPInteger const d_ = factorial(l_);
-    sum += N_ / (a_ * b_ * c_ * d_);
-  }
-
-  MPInteger const four_N = mp::pow(MPInteger(4), N);
-  MPFloat const answer = MPFloat(sum) / MPFloat(four_N);
-
-  cout << setprecision(16) << answer << endl;
+  cout << setprecision(16) << sum << endl;
 }
