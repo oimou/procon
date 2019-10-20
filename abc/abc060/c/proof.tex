@@ -1,0 +1,17 @@
+\documentclass{article}
+\usepackage{parskip}
+\usepackage{amsmath}
+\begin{document}
+
+数列$\{u_n\}$を次のように定義する：
+\begin{equation*}
+    u_n = \mathrm{max}\{t_{n + 1} - t_n - T, 0\} \hspace{15pt} (1 \leq n \leq N - 1)
+\end{equation*}
+$u_n$は，$n + 1$人目と$n$人目の間でお湯が出ていない秒数に一致する。
+したがって，求める時間は，
+\begin{equation*}
+    t_N + T - \sum_{i = n}^{N - 1} u_i
+\end{equation*}
+である。
+
+\end{document}
