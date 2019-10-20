@@ -9,12 +9,14 @@ $$n = p_1^{\alpha_1} p_2^{\alpha_2} \cdots p_k^{\alpha_k}$$
 $$(\alpha_1 + 1) (\alpha_2 + 1) \cdots (\alpha_k + 1)$$
 である。
 
-$N!$の素因数分解に含まれる素因数$p_i$の個数$\alpha_i$は，
-$N$以下の正整数の素因数分解に含まれる$p_i$の個数の総和であるから，
-整数$m\ (1 \leq m \leq N)$の素因数分解に含まれる素因数$p_i$の個数を
-$\alpha_{m, i}$とおくと，$N!$の正の約数の個数は，
+ルジャンドルの定理により，
+$N!$の素因数分解に含まれる素因数$p$の個数$\alpha_i$は，
 \begin{equation}
-    \prod_{i}^\infty ( 1 + \sum_{j = 1}^N \alpha_{j, i} ) \nonumber
+    \sum_{j = 1}^\infty \left\lfloor \dfrac{N}{p^j} \right\rfloor \nonumber
+\end{equation}
+であるから，$N!$の正の約数の個数は，
+\begin{equation}
+    \prod_{i}^\infty ( 1 + \sum_{j = 1}^\infty \left\lfloor \dfrac{N}{p_i^j} \right\rfloor ) \nonumber
 \end{equation}
 である。
 
