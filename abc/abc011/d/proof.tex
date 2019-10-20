@@ -1,18 +1,25 @@
 \documentclass{article}
 \usepackage{parskip}
 \usepackage{amsmath}
+\usepackage{ascmac}
+\usepackage{cases}
 \begin{document}
+
+\section{証明}
 
 点$(X, Y)$を$P$とおく。
 移動の対称性により，$P$は$X \geq 0, Y \geq 0$の範囲にあるとしても一般性を失わない。
 以下，この前提のもとで考える。
 
-$P$に到達できる移動方法が存在するためには，$X$も$Y$も$D$で割り切れることが必要である。
+$P$に到達できる移動の仕方が存在するためには，$X$も$Y$も$D$で割り切れることが必要である。
 このとき，ある非負整数$k, l$が存在し，次が成り立つ。
-\begin{eqnarray*}
-    X &=& kD \\
-    Y &=& lD
-\end{eqnarray*}
+\begin{equation}
+    \label{k_l}
+    \begin{cases}
+        X = kD \\
+        Y = lD
+    \end{cases}
+\end{equation}
 よって，原点から$P$までのマンハッタン距離は$X + Y = (k + l)D$と表すことができる。
 このことと，$N$回で移動できるマンハッタン距離の最大値は$ND$であることから，
 \begin{equation}
@@ -21,47 +28,110 @@ $P$に到達できる移動方法が存在するためには，$X$も$Y$も$D$�
 \end{equation}
 が必要である。
 
-ここで，
-\begin{quote}
-    $X$軸に平行に$+D, -D$だけ移動する回数をそれぞれ$a, b$ \\
-    $Y$軸に平行に$+D, -D$だけ移動する回数をそれぞれ$c, d$
-\end{quote}
-とおく。
+ここで，$X, Y$軸に平行な移動の回数をそれぞれ$A, B$とおくと，
+\begin{equation*}
+    \begin{cases}
+        N = A + B \\
+        k \leq A \leq N
+    \end{cases}
+\end{equation*}
+である。
 
-ちょうど$N$回で$P$に到達するような移動の仕方は，非負整数$k', l'$を用いて表すと，
+さらに，$+x,\ -x,\ +y,\ -y$方向の移動の回数をそれぞれ$A_+,\ A_-,\ B_+,\ B_-$とおく。
+各軸に平行な移動について "行き過ぎた分は戻らないといけない" ことにも注意すれば，
+\begin{equation*}
+    \begin{cases}
+        A = A_+ + A_- \\
+        B = B_+ + B_- \\
+        k = A_+ - A_- \\
+        l = B_+ - B_-
+    \end{cases}
+    \hspace{15pt} \mbox{i.e.} \hspace{15pt}
+    \begin{cases}
+        A_\pm = \cfrac{A \pm k}{2} \hspace{15pt} \mbox{(複号同順)} \\
+        B_\pm = \cfrac{B \pm l}{2} \hspace{15pt} \mbox{(複号同順)}
+    \end{cases}
+\end{equation*}
+が成り立つ。
+よって，$A$を固定すると他の方向の移動の回数もすべて決まる。
+移動の仕方の個数は次の選び方の個数に等しい：
 \begin{quote}
-    $X$軸の正方向に$k + k'$回，負方向に$k'$回だけ移動 \\
-    $Y$軸の正方向に$l + l'$回，負方向に$l'$回だけ移動
+    i) $N$回の移動のうち$x$軸に平行な移動をする$A$回を選ぶ \\
+    ii) このそれぞれに対して，$x$軸に平行な$A$回の移動のうち$+x$方向に移動する$A_+$回を選ぶ \\
+    iii) このそれぞれに対して，$y$軸に平行な$B$回の移動のうち$+y$方向に移動する$B_+$回を選ぶ
 \end{quote}
-するような場合なので，
-$$a = k + k',\ b = k',\ c = l + l',\ d = l'$$
-である。このような移動の仕方を「ゴールできる移動の仕方」と呼ぶことにする。
-ただし，$k', l'$は
-$$N = a + b + c + d = (k + k') + k' + (l + l') + l'$$
-を満たすので，
-$$l' = \frac{1}{2} (N - k - 2k' - l)$$
-が成り立ち，このような整数$l'$が存在するためには$N-(k+l)$が偶数であることが必要である。
-この条件のもとで，$0 \leq k' \leq N, 0 \leq l' \leq N$から，$k'$の範囲は，
+
+$N$回の移動の仕方は$4^N$通りあり，これらはの起こり方は同様に確からしいから，求める確率は，
 \begin{equation}
-    \label{k_range}
-    0 \leq k' \leq \frac{1}{2} (N - (k + l))
+    \label{answer}
+    \dfrac{1}{4^N}
+    \sum_{A}
+    \left(
+    {}_N \mathrm{C}_{A}
+    \times
+    {}_A \mathrm{C}_{A_+}
+    \times
+    {}_B \mathrm{C}_{B_+}
+    \right)
+    =
+    \sum_{A}
+    \left(
+    \dfrac{{}_N \mathrm{C}_{A}}{2^N}
+    \dfrac{{}_A \mathrm{C}_{A_+}}{2^A}
+    \dfrac{{}_B \mathrm{C}_{B_+}}{2^B}
+    \right)
 \end{equation}
-であり，(\ref{N_k_l})の制約のもとでこれを満たす$k'$が存在する。
+である。
 
-「ゴールできる移動の仕方」の個数は，$k'$を固定すると，
-\[
-    {}_N C_a \times {}_{N-a} C_b \times {}_{N-a-b} C_c = \cfrac{N!}{a!b!c!d!}
-\]
+つぎに，$A$の範囲を求める。
+$A_\pm,\ B_\pm$がいずれも整数であるためには
+$A$と$k$, $B$と$l$の偶奇がそれぞれ一致しなければならないから，
+非負整数$t, u$を用いて
+\begin{equation*}
+    \begin{cases}
+        A = k + 2t \\
+        B = l + 2u
+    \end{cases}
+\end{equation*}
+が成り立つことが必要十分であり，
+$N = A + B$を用いて整理すると，$t, u$が
+\begin{equation*}
+    t - u = \dfrac{1}{2} (N - (k + l))
+\end{equation*}
+を満たすことが必要十分である。
+このような整数$t, u$が存在するためには，
+\begin{equation}
+    \label{N_k_l_even}
+    N - (k + l) \mbox{が偶数}
+\end{equation}
+が必要十分である。
+また，$A, B$が$k \leq A \leq N,\ l \leq B \leq N$を満たすための$t$の条件は，
+\begin{equation}
+    \label{t_range}
+    0 \leq t \leq \dfrac{N - (k + l)}{2}
+\end{equation}
 である。
-$k'$は(\ref{k_range})の範囲をくまなく動くので，「ゴールできる移動の仕方」の個数は，
-\[
-    \sum_{k' = 0}^{ \frac{1}{2} (N - (k + l)) } \cfrac{N!}{a!b!c!d!}
-\]
-である。
-$P$までの移動の仕方は$4^N$通りであり，これらの起こり方は同様に確からしいから，求める確率は，
-\[
-    \cfrac{1}{4^N} \sum_{k' = 0}^{ \frac{1}{2} (N - (k + l)) } \cfrac{N!}{a!b!c!d!}
-\]
-である。
+
+以上より，求める確率は，
+(\ref{k_l}), (\ref{N_k_l}), (\ref{N_k_l_even})が成り立つならば，
+(\ref{t_range})の範囲のすべての$t$により定まる$A$に関する和(\ref{answer})であり，
+そうでない場合は0である。
+
+
+
+\section{計算手法に関する証明}
+
+一般に，非負整数$n, r\ (n \geq 2,\ 2 \leq r \leq n - 1)$に対して次が成り立つ：
+\begin{equation*}
+    {}_n \mathrm{C}_r = {}_{n-1} \mathrm{C}_{r-1} + {}_{n-1} \mathrm{C}_{r}
+\end{equation*}
+このことと二項係数の定義から，
+非負整数$s, n, r\ (r \leq n)$に対して$f(n, r) = \dfrac{{}_n \mathrm{C}_r}{s^n}$とおくと，
+次の漸化式が成り立つ。
+\begin{eqnarray*}
+    &f(n, 0) = \dfrac{1}{s^n},\ f(n, n) = \dfrac{1}{s^n} \\
+    &f(n, r) = \dfrac{1}{s} \{f(n-1, r-1) + f(n-1, r)\} \\
+\end{eqnarray*}
+このことを用いて，再帰的に確率の値を計算することができる。
 
 \end{document}
