@@ -1,0 +1,30 @@
+digraph G {
+    graph [
+        layout = dot,
+        rankdir = BT
+    ]
+
+    CBA [label="C + B + A"]
+    DBA [label="D + B + A"]
+    EBA [label="E + B + A"]
+    DCA [label="D + C + A"]
+    ECA [label="E + C + A"]
+    EDA [label="E + D + A"]
+    DCB [label="D + C + B"]
+    ECB [label="E + C + B"]
+    EDB [label="E + D + B"]
+    EDC [label="E + D + C"]
+
+    CBA -> DBA [label="D > C"];
+    DBA -> DCA [label="C > B"];
+    DBA -> EBA [label="E > D"];
+    DCA -> DCB [label="B > A"];
+    DCA -> ECA [label="E > D"];
+    EBA -> ECA [label="C > B"];
+    DCB -> ECB [label="E > D"];
+    ECA -> ECB [label="B > A"];
+    ECA -> EDA [label="D > C"];
+    ECB -> EDB [label="D > C"];
+    EDA -> EDB [label="B > A"];
+    EDB -> EDC [label="C > B"];
+}
