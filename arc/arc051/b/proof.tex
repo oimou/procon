@@ -3,4 +3,47 @@
 \usepackage{amsmath}
 \begin{document}
 
+2つの自然数$m, n$に対して，$f(m, n)$を，$m$を$n$で割った余りと定義すると，
+除法の定理により$f(m, n)$は$0 \leq f(m, n) < n$の範囲にただひとつ存在する。
+
+数列$\{r_n\}$を次の漸化式によって定める：
+\begin{eqnarray*}
+    &r_0 = a,\ r_1 = b \hspace{15pt} (\mbox{$a, b$は正整数}) \\
+    &r_n = f(r_{n - 2},\ r_{n - 1}) \hspace{15pt} (n \geq 2)
+\end{eqnarray*}
+ただし，ユークリッドの互除法の基本原理によれば
+$\{r_n\}$は狭義単調減少であって$r_{n + 1} = 0$となるような$n$ (このような$n$を$N$とおく)が存在するから，
+割り算の余りが定義できない。
+したがって，第$N$項より後は定義しないものとする。
+
+数列$\{r_n\}$に対して，ユークリッドの互除法によって
+\begin{equation*}
+    \mathrm{gcd}(a, b)
+    = \mathrm{gcd}(r_0, r_1)
+    = \mathrm{gcd}(r_{N - 1}, r_{N})
+    = r_{N}
+\end{equation*}
+が成り立ち，$N$は本問における「再帰の回数」に一致する。
+
+ここで，フィボナッチ数列$\{F_n\}$を次の漸化式によって定める：
+\begin{eqnarray*}
+    &F_0 = 0,\ F_1 = 1 \\
+    &F_n = F_{n - 2} + F_{n - 1} \hspace{15pt} (n \geq 2)
+\end{eqnarray*}
+3以上の任意の正整数$k$に対して
+\begin{equation*}
+    f(F_{k + 1},\ F_{k}) = F_{k - 1}
+\end{equation*}
+が成り立つから，任意の正整数$K$に対して，
+\begin{eqnarray*}
+    &r_0 = F_{K + 2} \\
+    &r_1 = F_{K + 1} \\
+    &r_2 = f(F_{K + 2},\ F_{K + 1}) = F_{K} \\
+    &\vdots \\
+    &r_K = f(F_{4},\ F_{3}) = F_2 \\
+    &r_{K + 1} = f(F_{3},\ F_{2}) = 0
+\end{eqnarray*}
+となる。
+したがって，$K$が指定されたとき，求める正整数の組$(a,\ b)$のひとつは$(F_{K + 2},\ F_{K + 1})$である。
+
 \end{document}

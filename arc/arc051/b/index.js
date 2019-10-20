@@ -4,14 +4,8 @@ let counter = 0;
 const gcd = function (a, b, show) {
   // if (show) process.stdout.write(`= (${a}, ${b})\t`);
   if (b == 0) return a
-  if (cache[`${a},${b}`]) {
-    const t = cache[`${a},${b}`];
-    counter += t[1];
-    return t[0];
-  } else {
-    counter++;
-    return gcd(b, a%b, show)
-  }
+  counter++;
+  return gcd(b, a%b, show)
 };
 
 let checkpointCounter = 1;
