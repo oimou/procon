@@ -46,11 +46,12 @@ $S$に隣接する点のひとつを$S_1$とおき，
 したがって，最短経路の長さが$4 (\Delta x + \Delta y) + 8$であるような経路で，
 かつ$S, T$を除き同じ座標を複数回通ることがないようなものが存在するならば，
 それは求める最短経路のひとつであるが，次のような経路はこの条件を満たす：
-\begin{quote}
-    i) $S$から$\Delta x$だけ右，$\Delta y$だけ上に進んで$T$に着く \\
-    ii) $T$から$\Delta x$だけ左，$\Delta y$だけ下に進んで$S$に着く \\
-    ii) $S$から1だけ左，$\Delta y + 1$だけ上，$\Delta x + 1$だけ右，1だけ下に進んで$T$に着く \\
-    ii) $T$から1だけ右，$\Delta y + 1$だけ下，$\Delta x + 1$だけ左，1だけ上に進んで$S$に着く
-\end{quote}
+\begin{enumerate}
+    \renewcommand{\labelenumi}{\roman{enumi}).}
+    \item $S$から$\Delta x$だけ右，$\Delta y$だけ上に進んで$T$に着く
+    \item $T$から$\Delta x$だけ左，$\Delta y$だけ下に進んで$S$に着く
+    \item $S$から1だけ左，$\Delta y + 1$だけ上，$\Delta x + 1$だけ右，1だけ下に進んで$T$に着く
+    \item $T$から1だけ右，$\Delta y + 1$だけ下，$\Delta x + 1$だけ左，1だけ上に進んで$S$に着く
+\end{enumerate}
 
 \end{document}
