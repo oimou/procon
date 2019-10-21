@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{parskip}
 \usepackage{amsmath}
+\usepackage[dvipdfmx]{graphicx}
 \begin{document}
 
 \end{document}
