@@ -2,6 +2,7 @@
 \usepackage{parskip}
 \usepackage{amsmath}
 \usepackage[dvipdfmx]{graphicx}
+\usepackage{cleveref}
 \begin{document}
 
 \end{document}
