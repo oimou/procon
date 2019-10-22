@@ -4,7 +4,25 @@
 \usepackage[dvipdfmx]{graphicx}
 \usepackage{cleveref}
 
-\newcommand{\combination}[2]{{}_{#1} \mathrm{C}_{#2}}
-
 \begin{document}
+
+数列$\{L_n\}$は広義単調増加であるとしても一般性を失わない。
+$\{L_n\}$から3つの項を選び，項の番号の小さい順にそれぞれ$a, b, c$とおく。
+このとき$1 \leq a \leq b \leq c$であることに注意すれば，
+\begin{equation}
+    \label{a}
+    \begin{cases}
+        a < b + c \\
+        b < c + a \\
+        c < a + b
+    \end{cases}
+    \Longleftrightarrow
+    c < a + b
+\end{equation}
+が成り立つから，$f(a; b, c)$を，$b, c$を固定したときに(\ref{a})を満たす$a$の個数とすれば，
+\begin{equation*}
+    \sum_{c} \sum_{b < c} f(a; b, c)
+\end{equation*}
+が求める値である。
+
 \end{document}
