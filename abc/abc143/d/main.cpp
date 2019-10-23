@@ -2,24 +2,35 @@
 
 using namespace std;
 
-int input () { int x; cin >> x; return x; }
-
-int main () {
-  int N, count;
-  vector<int> L;
-
+vector<int> init_L () {
+  int N;
   cin >> N;
 
-  for (int i = 0; i < N; i++) L.push_back(input());
+  vector<int> L;
+
+  for (int i = 0; i < N; i++) {
+    int x;
+    cin >> x;
+    L.push_back(x);
+  }
 
   sort(L.begin(), L.end());
 
-  for (auto ib = L.end() - 1; ib >= L.begin(); ib--) {
-    for (auto ia = ib - 1; ia >= L.begin(); ia--) {
-      auto ic_upper_limit = lower_bound(ib, L.end(), *ia + *ib);
-      count += distance(ib, ic_upper_limit) - 1;
+  return L;
+}
+
+int main () {
+  int cnt = 0;
+  vector<int> L = init_L();
+
+  for (auto ia = L.begin(); ia <= L.end() - 3; ia++) {
+    for (auto ib = ia + 1; ib <= L.end() - 2; ib++) {
+      auto il = (L.back() < *ia + *ib)
+        ? L.end()
+        : lower_bound(ib, L.end(), *ia + *ib);
+      cnt += max((int)distance(ib + 1, il - 1) + 1, 0);
     }
   }
 
-  cout << count << "\n";
+  cout << cnt << "\n";
 }
