@@ -1,0 +1,46 @@
+\documentclass{article}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{cleveref}
+
+\begin{document}
+
+整数列$\{L_n\}$の項数を$N (\geq 3)$とおく。
+$\{L_n\}$は広義単調増加であるとしてよい。
+
+$\{L_n\}$から第$i, j$項$(i < j)$を選んでそれぞれ$a = L_i, b = L_j$とおき，
+\begin{equation}
+    \label{c_upper_limit}
+    a + b \leq L_n
+\end{equation}
+をみたす最小の$n$を$l_{a, b}$とおく。
+ただし，$\{L_n\}$の最後の項が$a + b$より小さいとき，およびそのときのみ，
+(\ref{c_upper_limit})を満たす最小の$n$は存在しないから，
+そのときは$l_{a, b} = N + 1$とおく。
+
+$\{L_n\}$の単調増加性により，
+整数$k$が閉区間$[j + 1, l_{a, b} - 1]$に含まれるとき，およびそのときのみ，
+$L_k$は次を満たす：
+\begin{equation}
+    \label{c_range}
+    b \leq L_k < a + b
+\end{equation}
+ここで，$1 \leq a \leq b \leq c$のとき，
+\begin{equation*}
+    \begin{cases}
+        a < b + c \\
+        b < c + a \\
+        c < a + b
+    \end{cases}
+    \Longleftrightarrow
+    c < a + b
+\end{equation*}
+であるから，すべての$a, b$の組合せに対して(\ref{c_range})を満たす$L_k$の個数，すなわち
+\begin{equation*}
+    \sum_{i = 1}^{N - 2} \sum_{j = i + 1}^{N - 1}
+    \max \{ (l_{a, b} - 1) - (j + 1) + 1, 0 \}
+\end{equation*}
+が求める値である。
+
+\end{document}
