@@ -41,6 +41,8 @@ I型の分割によってちょうど3等分することができ，
 このとき$\Delta S = 0$である。
 以下，$H, W$のいずれも3で割り切れないときを考える。
 
+求める値は，長方形をI型，T型に分割したときのそれぞれの$\Delta S$の最小値の大きくない方である。
+
 \myparagraph{[1] I型に分割するとき}
 
 まず，(\cref{type-i})のように縦の辺に平行な2本の線分を引いて分割する場合を考える。
@@ -61,7 +63,8 @@ I型の分割をするときの$\Delta S$の最小値は
 
 \myparagraph{[2] T型に分割するとき}
 
-まず，(\cref{type-t})のように1辺の長さが$W$の長方形ができるように分割する場合を考える。
+まず，(\cref{type-t})のように1辺の長さが$W$の長方形ができるように分割する場合
+(縦向きのT型と呼ぶことにする)を考える。
 T型の分割は任意の$W, H$に対して存在する。
 
 (\cref{type-t})下部の2つの長方形の幅の差が最小となるような
@@ -82,42 +85,7 @@ T型の分割は任意の$W, H$に対して存在する。
     B(h) \leq C(h)
 \end{equation}
 が成り立つ。
-
-\myparagraph{[2-1] $W$が偶数のとき}
-
-$W$が偶数ならば，(\ref{w2})の2数は互いに等しいので，
-\begin{equation*}
-    B(l) = C(l) = \dfrac{W}{2} h
-\end{equation*}
-である。
-
-$A(h), B(h), C(h)$の単調性と，
-\begin{equation*}
-    A(l) > B(l)
-    \Longleftrightarrow
-    \frac{2}{3} H > h
-\end{equation*}
-すなわち $h = \dfrac{2}{3} H$ を境に$A(h)$と$B(h)$の
-大小関係が逆転することに注意すれば，$\Delta S$が最小となるのは，$h$の値が
-\begin{equation*}
-    h_1 = \left\lfloor \frac{2}{3} H \right\rfloor
-    \hspace{15pt} \mbox{または} \hspace{15pt}
-    h_2 = \left\lceil  \frac{2}{3} H \right\rceil
-\end{equation*}
-のときであり，このとき，$\Delta S$の最小値は
-\begin{equation}
-    \label{min-t1}
-    \begin{cases}
-        \vspace{15pt}
-        A(h) - B(h) & (h = h_1 \mbox{のとき}) \\
-        B(h) - A(h) & (h = h_2 \mbox{のとき})
-    \end{cases}
-\end{equation}
-である。これらの値は$W, H$のみに依存する。
-
-\myparagraph{[2-2] $W$が奇数のとき}
-
-(\ref{b_c})により，$A(h), B(h), C(h)$の大小関係は次の3通りである：
+よって，$A(h), B(h), C(h)$の大小関係は次の3通りである：
 \begin{eqnarray}
     \label{abc1}
     B(h) \leq A(h) \leq C(h) \\
@@ -126,8 +94,7 @@ $A(h), B(h), C(h)$の単調性と，
     \label{abc3}
     B(h) \leq C(h) \leq A(h)
 \end{eqnarray}
-
-ここで，
+それぞれの不等号の成立に関する$h$の条件は
 \begin{equation*}
     B(h) \leq A(h)
     \Longleftrightarrow
@@ -140,7 +107,9 @@ $A(h), B(h), C(h)$の単調性と，
     \dfrac{WH}{ W + \left\lceil \dfrac{W}{2} \right\rceil }
     \leq h
 \end{equation*}
-であることから，(\ref{abc1})を満たす$h$は存在しない。
+である。ここで，(\ref{abc1})については，$W$が偶数ならば(\ref{abc1})を満たす$h$が存在するが，
+そのときは(\ref{abc2}), (\ref{abc3})のいずれかも成立しているので考えなくてよく，
+$W$が奇数ならば(\ref{abc1})を満たす$h$は存在しないのでやはり考えなくてよい。
 
 $A(h), B(h), C(h)$の単調性と，
 \begin{equation*}
@@ -151,27 +120,27 @@ $A(h), B(h), C(h)$の単調性と，
 を境に$A(h)$と$B(h)$，$A(h)$と$C(h)$の大小関係がそれぞれ逆転することに注意すれば，
 $\Delta S$が最小となるのは，$h$の値が
 \begin{equation*}
-    h_3 =
+    h_1 =
     \left\lceil
         \dfrac{WH}{ W + \left\lfloor \dfrac{W}{2} \right\rfloor }
     \right\rceil
     \hspace{15pt} \mbox{または} \hspace{15pt}
-    h_4 =
+    h_2 =
     \left\lfloor
         \dfrac{WH}{ W + \left\lceil  \dfrac{W}{2} \right\rceil }
     \right\rfloor
 \end{equation*}
 のときであり，このとき，$\Delta S$の最小値は
 \begin{equation}
-    \label{min-t2}
-    \begin{cases}
-        \vspace{15pt}
-        A(h) - B(h) & (h = h_3 \mbox{のとき}) \\
-        B(h) - A(h) & (h = h_4 \mbox{のとき})
-    \end{cases}
+    \label{min-t}
+    \min \{ C(h_1) - A(h_1),\ A(h_2) - B(h_2) \}
 \end{equation}
 である。これらの値は$W, H$のみに依存する。
 
-以上より，求める最小値は(\ref{min-i}), (\ref{min-t1}), (\ref{min-t2})のうち最小のものである。
+同様に，1辺の長さが$H$の長方形ができるように分割する場合(横向きのT型と呼ぶことにする)は
+$W, H$を互いに交換して(\ref{min-t})の値を求めればよい。
+
+したがって，T型の分割をするときの$\Delta S$の最小値は，
+縦向き，横向きのT型の分割のそれぞれに対して求めた(\ref{min-t})の値の大きくない方である。
 
 \end{document}
