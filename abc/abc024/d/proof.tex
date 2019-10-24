@@ -9,42 +9,41 @@
 
 \begin{document}
 
-$x \geq 1,\ y \geq 1$のときマス$(x, y)$の値は$\combination{x + y}{y}$であるから，
-$A, B, C$はある非負整数$r, c$を用いて次のように表せる：
+$M = 1000000007$とおく。
+$(r, c), (r, c + 1), (r + 1, c)$にたどり着く方法の個数を
+それぞれ$A', B', C'$とおくと，$A', B', C'$を$M$で割った余りがそれぞれ$A, B, C$である。
+
+$x \geq 1,\ y \geq 1$のときマス$(x, y)$にたどり着く方法の個数は$\combination{x + y}{y}$であるから，
+$A', B', C'$は次のように表せる：
 \begin{equation*}
     \begin{cases}
-        A = \combination{r + c}{r} = \combination{r + c}{c} \\
-        B = \combination{r + c + 1}{r} = \combination{r + c + 1}{c + 1} \\
-        C = \combination{r + c + 1}{r + 1}
+        A' = \combination{r + c}{r} = \combination{r + c}{c} \\
+        B' = \combination{r + c + 1}{c + 1} \\
+        C' = \combination{r + c + 1}{r + 1}
     \end{cases}
 \end{equation*}
 
-\myparagraph{[1] $A = 0$または$A = 1$のとき}
+\myparagraph{[1] $A \geq 2$のとき}
 
-明らかに$r = B - 1,\ c = C - 1$が成り立つ。
-
-\myparagraph{[2] $A \geq 2$のとき}
-
-$A \geq 2$ならば$r \geq 1,\ c \geq 1$である。
+$A \geq 2$ならば$A' \geq 2$なので，$r \geq 1,\ c \geq 1$である。
 
 一般に，$n \geq 2,\ k \geq 1$のとき
 \begin{equation*}
     k \times \combination{n}{k} = n \times \combination{n - 1}{k - 1}
 \end{equation*}
-が成り立つから，$A, B, C$に関して次が成り立つ：
+が成り立つから，$A', B', C'$に関して次が成り立つ：
 \begin{equation*}
     \begin{cases}
-        (r + 1)\ C = (r + c + 1)\ A \\
-        (c + 1)\ B = (r + c + 1)\ A
+        (r + 1)\ C' = (r + c + 1)\ A' \\
+        (c + 1)\ B' = (r + c + 1)\ A'
     \end{cases}
 \end{equation*}
-$\beta = \dfrac{B}{A},\ \gamma = \dfrac{C}{A}$とおき，
-$1 \leq A < B,\ 1 \leq A < C$より$\beta > 1,\ \gamma > 1$であることに注意してこれを解くと，
+$1 \leq A' < B',\ 1 \leq A' < C'$に注意してこれを解くと，
 \begin{equation*}
     \begin{cases}
         \vspace{10pt}
-        r = \dfrac{(\beta  - 1) \gamma}{1 - (\beta - 1)(\gamma - 1)} \\
-        c = \dfrac{(\gamma - 1) \beta }{1 - (\beta - 1)(\gamma - 1)}
+        r = \dfrac{B'C' - A'C'}{-B'C' + A'B' + A'C'} \\
+        c = \dfrac{B'C' - A'B'}{-B'C' + A'B' + A'C'}
     \end{cases}
 \end{equation*}
 である。
