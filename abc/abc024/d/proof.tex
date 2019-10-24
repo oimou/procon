@@ -1,8 +1,10 @@
 \documentclass{article}
 \usepackage{parskip}
 \usepackage{amsmath}
+\usepackage{ascmac}
 \usepackage[dvipdfmx]{graphicx}
 \usepackage{cleveref}
+\usepackage{amssymb}
 
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
 \newcommand{\combination}[2]{{}_{#1} \mathrm{C}_{#2}}
@@ -47,5 +49,78 @@ $1 \leq A' < B',\ 1 \leq A' < C'$に注意してこれを解くと，
     \end{cases}
 \end{equation*}
 である。
+
+% TODO
+
+
+
+\section{逆元の存在証明}
+
+% TODO
+
+
+
+\section{フェルマーの小定理の証明}
+
+整数$m\ (\geq 2)$に対して
+\begin{equation*}
+    d_m = \mathrm{gcd} (\combination{m}{1}, \combination{m}{2},\ \ldots\ , \combination{m}{m-1})
+\end{equation*}
+と定義する。
+
+\begin{itembox}[l]{補題1}
+    $m$が素数ならば$d_m = m$が成り立つ。
+\end{itembox}
+
+一般に，$m \geq 2,\ k \geq 1$のとき
+\begin{equation*}
+    k \times \combination{m}{k} = m \times \combination{m - 1}{k - 1}
+\end{equation*}
+が成り立つ。
+このことと，$1 \leq k \leq m - 1$のとき$m$と$k$は互いに素であることから，
+任意の$k\ (1 \leq k \leq m - 1)$に対して
+$\combination{m}{k}$は$m$で割り切れる。
+
+また，$\combination{m}{1} = m$で$m$は素数なので$d_m = 1$または$d_m = m$が必要である。
+
+したがって，$d_m = m$である。
+
+\begin{itembox}[l]{補題2}
+    任意の自然数$k$に対して，$k^m - k$は$d_m$で割り切れる。
+\end{itembox}
+
+自然数$n$に関する条件「$n^m - n$は$d_m$で割り切れる」を$P(n)$とおく。
+
+$n = 1$のとき，$n^m - n$すなわち0は$d_m\ (\geq 1)$で割り切れるから，$P(1)$が成り立つ。
+
+ある$n = k\ (\geq 1)$に対して$P(k)$が成り立つと仮定すると
+\begin{equation}
+    \label{assumption}
+    k^m - k \equiv 0 \mod{d_m}
+\end{equation}
+が成り立つが，このとき
+\begin{eqnarray*}
+    (k + 1)^m - (k + 1) &=& \sum_{j = 0}^{m} \combination{m}{j} k^j - (k + 1) \\
+                        &=& \sum_{j = 1}^{m - 1} \combination{m}{j} k^j + k^m - k \\
+                        &\equiv& k^m - k \mod{d_m} \\
+                        &\equiv& 0 \mod{d_m} \hspace{15pt} (\ \because (\ref{assumption}) )
+\end{eqnarray*}
+なので，$P(k + 1)$も成り立つ。
+
+以上より，補題2が成り立つ。
+
+\begin{itembox}[l]{フェルマーの小定理}
+    $p$が素数のとき，任意の自然数$k$に対して$k^{p - 1} \equiv 1 \mod{p}$が成り立つ。
+\end{itembox}
+
+補題1, 2より，$p$が素数のとき，$p$と互いに素な任意の自然数$k$に対して
+\begin{equation*}
+    k^p \equiv k \mod{p}
+\end{equation*}
+が成り立つ。$k$と$p$は互いに素であるから，両辺を$k$で割ることができ，
+\begin{equation*}
+    k^{p - 1} \equiv 1 \mod{p}
+\end{equation*}
+が成り立つ。
 
 \end{document}
