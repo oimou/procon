@@ -3,60 +3,166 @@
 \usepackage{amsmath}
 \usepackage{ascmac}
 \usepackage[dvipdfmx]{graphicx}
-\usepackage{cleveref}
 \usepackage{amssymb}
+\usepackage{amsthm}
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+    \pushQED{\qed}
+    \normalfont
+    \topsep6\p@\@plus6\p@ \trivlist
+    \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces
+}{%
+    \popQED\endtrivlist\@endpefalse
+}
+\renewcommand{\proofname}{証明.}
+\makeatother
+
+\usepackage{cleveref}
+\crefname{theorem}{定理}{定理}
+\crefname{lemma}{補題}{補題}
+
+\newtheorem{theorem}{定理}
+\newtheorem{lemma}{補題}
 
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
 \newcommand{\combination}[2]{{}_{#1} \mathrm{C}_{#2}}
 
 \begin{document}
 
-$M = 1000000007$とおく。
-$(r, c), (r, c + 1), (r + 1, c)$にたどり着く方法の個数を
-それぞれ$A', B', C'$とおくと，$A', B', C'$を$M$で割った余りがそれぞれ$A, B, C$である。
+\section{本題の証明}
 
-$x \geq 1,\ y \geq 1$のときマス$(x, y)$にたどり着く方法の個数は$\combination{x + y}{y}$であるから，
-$A', B', C'$は次のように表せる：
-\begin{equation*}
-    \begin{cases}
-        A' = \combination{r + c}{r} = \combination{r + c}{c} \\
-        B' = \combination{r + c + 1}{c + 1} \\
-        C' = \combination{r + c + 1}{r + 1}
-    \end{cases}
-\end{equation*}
+\begin{screen}
+    求める$r, c$は
+    \begin{eqnarray*}
+        &(BC - AC)(-BC + AB + AC)^{M - 2}, \\
+        &(BC - AB)(-BC + AB + AC)^{M - 2}
+    \end{eqnarray*}
+    をそれぞれ$M$で割った余りである。
+\end{screen}
 
-\myparagraph{[1] $A \geq 2$のとき}
+\begin{proof}
+    $M = 1000000007$とおく。
+    $(r, c), (r, c + 1), (r + 1, c)$にたどり着く方法の個数を
+    それぞれ$A', B', C'$とおくと，$A', B', C'$を$M$で割った余りがそれぞれ$A, B, C$である。
 
-$A \geq 2$ならば$A' \geq 2$なので，$r \geq 1,\ c \geq 1$である。
+    $x \geq 1,\ y \geq 1$のときマス$(x, y)$にたどり着く方法の個数は$\combination{x + y}{y}$であるから，
+    $A', B', C'$は次のように表せる：
+    \begin{equation*}
+        \begin{cases}
+            A' = \combination{r + c}{r} = \combination{r + c}{c} \\
+            B' = \combination{r + c + 1}{c + 1} \\
+            C' = \combination{r + c + 1}{r + 1}
+        \end{cases}
+    \end{equation*}
 
-一般に，$n \geq 2,\ k \geq 1$のとき
-\begin{equation*}
-    k \times \combination{n}{k} = n \times \combination{n - 1}{k - 1}
-\end{equation*}
-が成り立つから，$A', B', C'$に関して次が成り立つ：
-\begin{equation*}
-    \begin{cases}
-        (r + 1)\ C' = (r + c + 1)\ A' \\
-        (c + 1)\ B' = (r + c + 1)\ A'
-    \end{cases}
-\end{equation*}
-$1 \leq A' < B',\ 1 \leq A' < C'$に注意してこれを解くと，
-\begin{equation*}
-    \begin{cases}
-        \vspace{10pt}
-        r = \dfrac{B'C' - A'C'}{-B'C' + A'B' + A'C'} \\
-        c = \dfrac{B'C' - A'B'}{-B'C' + A'B' + A'C'}
-    \end{cases}
-\end{equation*}
-である。
+    \myparagraph{[1] $A \geq 2$のとき}
 
-% TODO
+    $A \geq 2$ならば$A' \geq 2$なので，$r \geq 1,\ c \geq 1$である。
+
+    一般に，$n \geq 2,\ k \geq 1$のとき
+    \begin{equation*}
+        k \times \combination{n}{k} = n \times \combination{n - 1}{k - 1}
+    \end{equation*}
+    が成り立つから，$A', B', C'$に関して次が成り立つ：
+    \begin{equation*}
+        \begin{cases}
+            (r + 1)\ C' = (r + c + 1)\ A' \\
+            (c + 1)\ B' = (r + c + 1)\ A'
+        \end{cases}
+    \end{equation*}
+    $1 \leq A' < B',\ 1 \leq A' < C'$に注意してこれを解くと，
+    \begin{equation}
+        \label{r_c}
+        \begin{cases}
+            \vspace{10pt}
+            r = \dfrac{B'C' - A'C'}{-B'C' + A'B' + A'C'} \\
+            c = \dfrac{B'C' - A'B'}{-B'C' + A'B' + A'C'}
+        \end{cases}
+    \end{equation}
+    であるから，$r, c$は一意的に定まる。
+
+    題意により$r, c$は$M$より小さい非負整数なので，
+    $r, c$は(\ref{r_c})の右辺を$M$で割った余りに一致する。
+
+    ここで，
+    \begin{equation*}
+        \begin{cases}
+            S = B'C' - A'C' \\
+            T = B'C' - A'B' \\
+            U = -B'C' + A'B' + A'C' \\
+            s = BC - AC \\
+            t = BC - AB \\
+            u = -BC + AB + AC
+        \end{cases}
+    \end{equation*}
+    とおく。
+    $M$が素数なので，\cref{lemma:inv:1}により
+    法$M$に関する$U, u$の逆元$U', u'\ (0 \leq U' < M,\ 0 \leq u' < M)$が唯一つ存在する。
+    $r, c$が整数ゆえに$S, T$がそれぞれ$U$の倍数であることに注意すれば，
+    次が成り立つ：
+    \begin{eqnarray*}
+        r &\equiv& SU' \mod{M} \hspace{15pt} (\because \mbox{\cref{lemma:inv:2}}) \\
+          &\equiv& su' \mod{M} \hspace{15pt} (\because \mbox{\cref{lemma:inv:3}}) \\
+        c &\equiv& TU' \mod{M} \hspace{15pt} (\because \mbox{\cref{lemma:inv:2}}) \\
+          &\equiv& tu' \mod{M} \hspace{15pt} (\because \mbox{\cref{lemma:inv:3}})
+    \end{eqnarray*}
+    このことと\cref{theorem:flt}により，
+    \begin{equation*}
+        u' \equiv u^{M - 2} \mod{M}
+    \end{equation*}
+    なので，$r, c$は$su^{M - 2},\ tu^{M - 2}$をそれぞれ$M$で割った余りである。
+
+    \myparagraph{[2] $A = 0$または$A = 1$のとき}
+
+    TODO
+\end{proof}
 
 
 
-\section{逆元の存在証明}
+\section{逆元の性質に関する証明}
 
-% TODO
+\begin{screen}
+    \begin{lemma}
+        \label{lemma:inv:1}
+        $M$が素数のとき，任意の整数$x$に対して，法$M$に関する$x$の逆元$x'$が$0 \leq x' < M$の範囲に唯一つ存在する。
+    \end{lemma}
+\end{screen}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{screen}
+    \begin{lemma}
+        \label{lemma:inv:2}
+        任意の整数$x, y$に対して，法$M$に関する$y$の逆元$y'$が存在するならば，
+        \begin{equation*}
+            \frac{xy}{y} \equiv xyy' \mod{M}
+        \end{equation*}
+        が成り立つ。
+    \end{lemma}
+\end{screen}
+
+\begin{proof}
+
+\end{proof}
+
+\begin{screen}
+    \begin{lemma}
+        \label{lemma:inv:3}
+        任意の整数$x, y$の法$M$に関する逆元をそれぞれ$x', y'$とおくと
+        \begin{equation*}
+            x \equiv y \mod{M}
+            \hspace{15pt} \Longrightarrow \hspace{15pt}
+            x' \equiv y' \mod{M}
+        \end{equation*}
+        が成り立つ。
+    \end{lemma}
+\end{screen}
+
+\begin{proof}
+
+\end{proof}
 
 
 
@@ -68,59 +174,74 @@ $1 \leq A' < B',\ 1 \leq A' < C'$に注意してこれを解くと，
 \end{equation*}
 と定義する。
 
-\begin{itembox}[l]{補題1}
-    $m$が素数ならば$d_m = m$が成り立つ。
-\end{itembox}
+\begin{screen}
+    \begin{lemma}
+        \label{lemma:flt:1}
+        $m$が素数ならば$d_m = m$が成り立つ。
+    \end{lemma}
+\end{screen}
 
-一般に，$m \geq 2,\ k \geq 1$のとき
-\begin{equation*}
-    k \times \combination{m}{k} = m \times \combination{m - 1}{k - 1}
-\end{equation*}
-が成り立つ。
-このことと，$1 \leq k \leq m - 1$のとき$m$と$k$は互いに素であることから，
-任意の$k\ (1 \leq k \leq m - 1)$に対して
-$\combination{m}{k}$は$m$で割り切れる。
+\begin{proof}
+    一般に，$m \geq 2,\ k \geq 1$のとき
+    \begin{equation*}
+        k \times \combination{m}{k} = m \times \combination{m - 1}{k - 1}
+    \end{equation*}
+    が成り立つ。
+    このことと，$1 \leq k \leq m - 1$のとき$m$と$k$は互いに素であることから，
+    任意の$k\ (1 \leq k \leq m - 1)$に対して
+    $\combination{m}{k}$は$m$で割り切れる。
 
-また，$\combination{m}{1} = m$で$m$は素数なので$d_m = 1$または$d_m = m$が必要である。
+    また，$\combination{m}{1} = m$で$m$は素数なので$d_m = 1$または$d_m = m$が必要である。
 
-したがって，$d_m = m$である。
+    したがって，$d_m = m$である。
+\end{proof}
 
-\begin{itembox}[l]{補題2}
-    任意の自然数$k$に対して，$k^m - k$は$d_m$で割り切れる。
-\end{itembox}
+\begin{screen}
+    \begin{lemma}
+        \label{lemma:flt:2}
+        任意の自然数$k$に対して，$k^m - k$は$d_m$で割り切れる。
+    \end{lemma}
+\end{screen}
 
-自然数$n$に関する条件「$n^m - n$は$d_m$で割り切れる」を$P(n)$とおく。
+\begin{proof}
+    自然数$n$に関する条件「$n^m - n$は$d_m$で割り切れる」を$P(n)$とおく。
 
-$n = 1$のとき，$n^m - n$すなわち0は$d_m\ (\geq 1)$で割り切れるから，$P(1)$が成り立つ。
+    $n = 1$のとき，$n^m - n$すなわち0は$d_m\ (\geq 1)$で割り切れるから，$P(1)$が成り立つ。
 
-ある$n = k\ (\geq 1)$に対して$P(k)$が成り立つと仮定すると
-\begin{equation}
-    \label{assumption}
-    k^m - k \equiv 0 \mod{d_m}
-\end{equation}
-が成り立つが，このとき
-\begin{eqnarray*}
-    (k + 1)^m - (k + 1) &=& \sum_{j = 0}^{m} \combination{m}{j} k^j - (k + 1) \\
-                        &=& \sum_{j = 1}^{m - 1} \combination{m}{j} k^j + k^m - k \\
-                        &\equiv& k^m - k \mod{d_m} \\
-                        &\equiv& 0 \mod{d_m} \hspace{15pt} (\ \because (\ref{assumption}) )
-\end{eqnarray*}
-なので，$P(k + 1)$も成り立つ。
+    ある$n = k\ (\geq 1)$に対して$P(k)$が成り立つと仮定すると
+    \begin{equation}
+        \label{assumption}
+        k^m - k \equiv 0 \mod{d_m}
+    \end{equation}
+    が成り立つが，このとき
+    \begin{eqnarray*}
+        (k + 1)^m - (k + 1) &=& \sum_{j = 0}^{m} \combination{m}{j} k^j - (k + 1) \\
+                            &=& \sum_{j = 1}^{m - 1} \combination{m}{j} k^j + k^m - k \\
+                            &\equiv& k^m - k \mod{d_m} \\
+                            &\equiv& 0 \mod{d_m} \hspace{15pt} (\ \because (\ref{assumption}) )
+    \end{eqnarray*}
+    なので，$P(k + 1)$も成り立つ。
 
-以上より，補題2が成り立つ。
+    以上より，\cref{lemma:flt:2}が成り立つ。
+\end{proof}
 
 \begin{itembox}[l]{フェルマーの小定理}
-    $p$が素数のとき，任意の自然数$k$に対して$k^{p - 1} \equiv 1 \mod{p}$が成り立つ。
+    \begin{theorem}
+        \label{theorem:flt}
+        $p$が素数のとき，任意の自然数$k$に対して$k^{p - 1} \equiv 1 \mod{p}$が成り立つ。
+    \end{theorem}
 \end{itembox}
 
-補題1, 2より，$p$が素数のとき，$p$と互いに素な任意の自然数$k$に対して
-\begin{equation*}
-    k^p \equiv k \mod{p}
-\end{equation*}
-が成り立つ。$k$と$p$は互いに素であるから，両辺を$k$で割ることができ，
-\begin{equation*}
-    k^{p - 1} \equiv 1 \mod{p}
-\end{equation*}
-が成り立つ。
+\begin{proof}
+    \cref{lemma:flt:1}, \cref{lemma:flt:2}より，$p$が素数のとき，$p$と互いに素な任意の自然数$k$に対して
+    \begin{equation*}
+        k^p \equiv k \mod{p}
+    \end{equation*}
+    が成り立つ。$k$と$p$は互いに素であるから，両辺を$k$で割ることができ，
+    \begin{equation*}
+        k^{p - 1} \equiv 1 \mod{p}
+    \end{equation*}
+    が成り立つ。
+\end{proof}
 
 \end{document}
