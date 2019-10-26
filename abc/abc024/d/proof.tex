@@ -97,7 +97,14 @@
     \end{alignat}
     とおく。
 
-    $M$と$U$は互いに素であるとしてよい。 % なぜ？？？
+    ここで，$M$と$U$が互いに素ではないと仮定すると，
+    $M$が素数であるこであることから$U$は$M$で割り切れる。
+    すると$r, c$が整数であることから，$S, T$も$M$で割り切れる。
+    よって$A'$は$M$で割り切れる。
+    ところが題意により$0 \leq r + c < 2 \times 99999999 < M$なので，
+    \cref{lemma:c:1}により$A'$は$M$で割り切れず，矛盾が生じる。
+    したがって，$M$と$U$は互いに素である。
+    よって，$M$と$u$も互いに素である。
 
     $M$は素数なので，\cref{lemma:inv:1}により
     法$M$に関する$U, u$の逆元$U', u'\ (0 \leq U' < M,\ 0 \leq u' < M)$が唯一つ存在する。
@@ -122,6 +129,25 @@
     したがって，[1]と同様の議論により\cref{prop:main}が成り立つ。
 \end{proof}
 
+
+\section{二項定理に関する証明}
+
+\begin{screen}
+    \begin{lemma}
+        \label{lemma:c:1}
+        $M$を素数とする。任意の整数$n, r\ (n \geq 1,\ 0 \leq r \leq n)$に対して，
+        $n < M$ならば，$\combination{n}{r}$は$M$で割り切れない。
+    \end{lemma}
+\end{screen}
+
+\begin{proof}
+    \begin{equation}
+        \combination{n}{r} = \frac{n!}{(n - r)! r!}
+    \end{equation}
+    なので，$\combination{n}{r}$が$M$で割り切れるならば$n!$が$M$で割り切れなければならないが，
+    $n < M$かつ$M$は素数なので$n!$は$M$で割り切れない。
+    したがって$\combination{n}{r}$は$M$で割り切れない。
+\end{proof}
 
 
 \section{逆元の性質に関する証明}

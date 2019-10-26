@@ -7,28 +7,29 @@ struct ResidueClass;
 ResidueClass fast_pow (ResidueClass, Integer);
 Integer positive_mod (Integer, Integer);
 
-Integer M = 1e9 + 7;
 struct ResidueClass {
   Integer value;
+  Integer M = 1e9 + 7;
 
   ResidueClass (Integer x) {
-    value = x % M;
+    value = positive_mod(x, M);
   }
 
   ResidueClass operator + (ResidueClass const x) const {
-    return ResidueClass { positive_mod(value + positive_mod(x.value, M), M) };
+    return ResidueClass { positive_mod(value + x.value, M) };
   }
 
   ResidueClass operator - (ResidueClass const x) const {
-    return ResidueClass { positive_mod(value - positive_mod(x.value, M), M) };
+    return ResidueClass { positive_mod(value - x.value, M) };
   }
 
   ResidueClass operator * (ResidueClass const x) const {
-    return ResidueClass { positive_mod(value * positive_mod(x.value, M), M) };
+    return ResidueClass { positive_mod(value * x.value, M) };
   }
 
-  ResidueClass inverse_element () const {
-    return fast_pow(value, M - 2);
+  ResidueClass operator / (ResidueClass const x) const {
+    ResidueClass x_inv = fast_pow(x, M - 2);
+    return ResidueClass { positive_mod(value * x_inv.value, M) };
   }
 };
 
@@ -48,15 +49,12 @@ int main () {
   Integer A_, B_, C_;
   cin >> A_ >> B_ >> C_;
 
-  ResidueClass A(A_);
-  ResidueClass B(B_);
-  ResidueClass C(C_);
+  ResidueClass A(A_), B(B_), C(C_);
   ResidueClass s(B * C - A * C);
   ResidueClass t(B * C - A * B);
   ResidueClass u(A * B + A * C - B * C);
-  ResidueClass u_ = u.inverse_element();
-  ResidueClass r = s * u_;
-  ResidueClass c = t * u_;
+  ResidueClass r = s / u;
+  ResidueClass c = t / u;
 
   printf("%d %d\n", r.value, c.value);
 }
