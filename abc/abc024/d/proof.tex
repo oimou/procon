@@ -3,6 +3,7 @@
 \usepackage{parskip}
 \usepackage{ascmac}
 \usepackage{amsmath,amssymb}
+\usepackage[hypertexnames=false,dvipdfmx,hidelinks]{hyperref}
 \usepackage{cleveref}
     \crefname{proposition}{命題}{命題}
     \crefname{theorem}{定理}{定理}
@@ -48,7 +49,6 @@
     $(r, c), (r, c + 1), (r + 1, c)$にたどり着く方法の個数を
     それぞれ$A', B', C'$とおくと，$A', B', C'$を$M$で割った余りがそれぞれ$A, B, C$である。
 
-    $x \geq 0,\ y \geq 0,\ (x, y) \neq (0, 0)$のとき
     マス$(x, y)$にたどり着く方法の個数は$\combination{x + y}{y}$であるから，
     $A', B', C'$は次のように表せる：
     \begin{equation}
@@ -81,7 +81,7 @@
             c = \dfrac{B'C' - A'B'}{-B'C' + A'B' + A'C'}
         \end{cases}
     \end{equation}
-    であるから，$r, c$は一意的に定まる。
+    である。
 
     題意により$r, c$は$M$より小さい非負整数なので，
     $r, c$は(\ref{r_c})の右辺を$M$で割った余りに一致する。
@@ -97,17 +97,16 @@
     \end{alignat}
     とおく。
 
-    ここで，$M$と$U$が互いに素ではないと仮定すると，
+    $M$と$U$が互いに素ではないと仮定すると，
     $M$が素数であるこであることから$U$は$M$で割り切れる。
-    すると$r, c$が整数であることから，$S, T$も$M$で割り切れる。
-    よって$A'$は$M$で割り切れる。
+    すると$r, c$が整数であることから，$S, T$も$M$で割り切れるので，$A'$は$M$で割り切れる。
     ところが題意により$0 \leq r + c < 2 \times 99999999 < M$なので，
     \cref{lemma:c:1}により$A'$は$M$で割り切れず，矛盾が生じる。
     したがって，$M$と$U$は互いに素である。
     よって，$M$と$u$も互いに素である。
 
     $M$は素数なので，\cref{lemma:inv:1}により
-    法$M$に関する$U, u$の逆元$U', u'\ (0 \leq U' < M,\ 0 \leq u' < M)$が唯一つ存在する。
+    法$M$に関する$U, u$のモジュラ逆数$U', u'\ (0 \leq U' < M,\ 0 \leq u' < M)$が唯一つ存在する。
     $r, c$が整数ゆえに$S, T$がそれぞれ$U$の倍数であることに注意すれば，
     次が成り立つ：
     \begin{alignat}{2}
@@ -130,7 +129,7 @@
 \end{proof}
 
 
-\section{二項定理に関する証明}
+\section{二項係数に関する証明}
 
 \begin{screen}
     \begin{lemma}
@@ -150,13 +149,13 @@
 \end{proof}
 
 
-\section{逆元の性質に関する証明}
+\section{モジュラ逆数の性質に関する証明}
 
 \begin{screen}
     \begin{lemma}
         \label{lemma:inv:1}
         $M$を素数，$x$を$M$と互いに素な整数とすると，
-        法$M$に関する$x$の逆元$x'$が$0 \leq x' < M$の範囲に唯一つ存在する。
+        法$M$に関する$x$のモジュラ逆数$x'$が$0 \leq x' < M$の範囲に唯一つ存在する。
     \end{lemma}
 \end{screen}
 
@@ -179,9 +178,9 @@
         x \cdot x^{j - i - 1} \equiv 1 \mod{M}
     \end{equation}
     が成り立つ。
-    したがって，$x^{j - i - 1}$は法$M$に関する$x$の逆元のひとつであるから，逆元の存在が示された。
+    したがって，$x^{j - i - 1}$は法$M$に関する$x$のモジュラ逆数のひとつであるから，モジュラ逆数の存在が示された。
 
-    ここで，$x', x''\ (1 \leq x' < M,\ 1 \leq x'' < M)$を$x$の逆元とすると，
+    ここで，$x', x''\ (1 \leq x' < M,\ 1 \leq x'' < M)$を$x$のモジュラ逆数とすると，
     \begin{alignat}{1}
         x \cdot x'  &\equiv 1 \mod{M} \\
         x \cdot x'' &\equiv 1 \mod{M}
@@ -195,13 +194,13 @@
         x' \equiv x'' \mod{M}
     \end{equation}
     が成り立ち，$1 \leq x' < M,\ 1 \leq x'' < M$により$x' = x''$である。
-    したがって，逆元の一意性が示された。
+    したがって，モジュラ逆数の一意性が示された。
 \end{proof}
 
 \begin{screen}
     \begin{lemma}
         \label{lemma:inv:2}
-        任意の整数$x, y$に対して，法$M$に関する$y$の逆元$y'$が存在するならば，
+        任意の整数$x, y$に対して，法$M$に関する$y$のモジュラ逆数$y'$が存在するならば，
         \begin{equation}
             \frac{xy}{y} \equiv xyy' \mod{M}
         \end{equation}
@@ -216,7 +215,7 @@
 \begin{screen}
     \begin{lemma}
         \label{lemma:inv:3}
-        $M$を素数とする。任意の整数$x, y$の法$M$に関する逆元が存在しそれぞれ$x', y'$であるとき，
+        $M$を素数とする。任意の整数$x, y$の法$M$に関するモジュラ逆数が存在しそれぞれ$x', y'$であるとき，
         \begin{equation}
             x \equiv y \mod{M}
             \hspace{15pt} \Longrightarrow \hspace{15pt}
@@ -227,12 +226,12 @@
 \end{screen}
 
 \begin{proof}
-    逆元の性質により
+    モジュラ逆数の性質により
     \begin{equation}
         xx' \equiv yy' \mod{M}
     \end{equation}
     が成り立つ。
-    $M$が素数であることと，逆元が存在することから，$M$と$x$，$M$と$y$はそれぞれ互いに素である。
+    $M$が素数であることと，モジュラ逆数が存在することから，$M$と$x$，$M$と$y$はそれぞれ互いに素である。
     よって，辺々を$x, y$で割って
     \begin{equation}
         x' \equiv y' \mod{M}
