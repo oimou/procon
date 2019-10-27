@@ -1,0 +1,93 @@
+\documentclass{article}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{parskip}
+\usepackage{ascmac}
+\usepackage{amsmath,amssymb}
+\usepackage{cleveref}
+    \crefname{proposition}{命題}{命題}
+    \crefname{theorem}{定理}{定理}
+    \crefname{lemma}{補題}{補題}
+    \crefmultiformat{lemma}{補題~#2#1#3}{,~#2#1#3}{, #2#1#3}{,~#2#1#3}
+\usepackage{autonum}
+\usepackage{amsthm}
+    \makeatletter
+    \renewenvironment{proof}[1][\proofname]{\par
+        \pushQED{\qed}
+        \normalfont
+        \topsep6\p@\@plus6\p@ \trivlist
+        \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces
+    }{%
+        \popQED\endtrivlist\@endpefalse
+    }
+    \renewcommand{\proofname}{証明.}
+    \makeatother
+\newtheorem{proposition}{命題}
+\newtheorem{theorem}{定理}
+\newtheorem{lemma}{補題}
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+\newcommand{\combination}[2]{{}_{#1} \mathrm{C}_{#2}}
+
+\begin{document}
+
+\section{本問に関する議論}
+
+素数の集合を$P$，合成数の集合を$C$，「素数っぽい」集合を$Q$，
+2, 3, 5のいずれでも割り切れないような2以上の整数の集合を$T$とおく。
+題意により，
+\begin{equation}
+    \begin{cases}
+        N \in P \Longrightarrow N \in Q \\
+        N \in C\ \mbox{かつ}\ N \in T \Longrightarrow N \in Q
+    \end{cases}
+\end{equation}
+であるから，
+\begin{alignat}{1}
+    N \in T &\Longrightarrow (N \in P\ \mbox{または}\ N \in C)\ \mbox{かつ}\ N \in T \\
+    &\Longrightarrow N \in Q
+\end{alignat}
+である。
+
+\section{エラトステネスの篩に関する議論}
+
+整数$n$に対して，$n$の倍数のうち$n$と異なるものを$n$の真の倍数と呼ぶことにする。
+
+2以上のすべての整数の集合を$A_0$とおく。
+$k$を4以上の整数として，$A_0$の要素のうちで次を満たすものすべての集合を$A_k$とおく：
+\begin{quote}
+    2以上$\lfloor \sqrt{k} \rfloor$以下のいかなる整数$j$に対してもその真の倍数でない。
+\end{quote}
+
+整数$N$に関する条件
+\begin{equation}
+    x \in A_N\ \mbox{かつ}\ 2 \leq x \leq N
+    \Longleftrightarrow
+    \mbox{$x$は2以上$N$以下の素数}
+\end{equation}
+を$P(N)$とおく。
+4以上のすべての整数$N$に対して$P(N)$が成り立つことを数学的帰納法によって示す。
+
+\myparagraph{[1] $N = 4$のとき}
+
+$A_4 = \{2, 3, 5, \ldots \}$なので，$P(4)$が成り立つ。
+
+\myparagraph{[2] $N \geq 4$のとき}
+
+ある$N\ (\geq 4)$に対して$P(N)$の成立を仮定する。
+$A_{N + 1}$の$N$以下の要素すべての集合は，$A_N$の$N$以下の要素すべての集合に一致するから，
+$P(N + 1)$の成立を示すには，
+\begin{gather}
+    \mbox{$N + 1$が素数である} \\
+    \Longleftrightarrow \\
+    N + 1 \in A_{N + 1}
+\end{gather}
+を示せば十分であるが，
+\begin{gather}
+    \mbox{$N + 1$が素数である} \\
+    \Longleftrightarrow \\
+    \mbox{$N + 1$が2以上$\lfloor \sqrt{N + 1} \rfloor$以下のいかなる整数でも割り切れない}
+\end{gather}
+なので，$P(N + 1)$が成り立つ。
+
+以上より，4以上のすべての整数$N$に対して$P(N)$が成り立つ。
+
+\end{document}
