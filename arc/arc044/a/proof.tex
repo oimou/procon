@@ -31,6 +31,8 @@
 
 \section{本問に関する議論}
 
+整数$n$に対して，$n$の倍数のうち$n$と異なるものを$n$の真の倍数と呼ぶことにする。
+
 素数の集合を$P$，合成数の集合を$C$，「素数っぽい」集合を$Q$，
 2, 3, 5のいずれでも割り切れないような2以上の整数の集合を$T$とおく。
 題意により，
@@ -46,6 +48,13 @@
     &\Longrightarrow N \in Q
 \end{alignat}
 である。
+また，$T$に含まれない正整数は，次のいずれかである：
+\begin{enumerate}
+    \renewcommand{\labelenumi}{\roman{enumi}).}
+    \item 1 ($\notin Q$)
+    \item 2, 3, 5 ($\in Q$)
+    \item 2, 3, 5のいずれかの真の倍数 ($\notin Q$)
+\end{enumerate}
 
 \section{エラトステネスの篩に関する議論}
 
