@@ -19,6 +19,10 @@ inline int getint() {
 	else while ((ct = *ci++) >= '0') A = A * 10 + ct - '0';
 	return A;
 }
+inline void flus() {
+  while (getcha() != ' ');
+}
+
 
 /**
  * swap values
