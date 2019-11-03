@@ -4,8 +4,7 @@ using namespace std;
 using Integer = long long;
 
 /**
- * amazingly fast IO
- * NOTE: fread_unlocked does not work on macOS.
+ * amazingly fast input
  */
 const int cm = 1 << 17;
 char cn[cm], * ci = cn + cm, ct;
