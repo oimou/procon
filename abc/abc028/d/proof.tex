@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{parskip}
+\usepackage{ascmac}
+\usepackage{amsmath,amssymb}
+\usepackage{cleveref}
+    \crefname{proposition}{命題}{命題}
+    \crefname{theorem}{定理}{定理}
+    \crefname{lemma}{補題}{補題}
+    \crefmultiformat{lemma}{補題~#2#1#3}{,~#2#1#3}{, #2#1#3}{,~#2#1#3}
+\usepackage{autonum}
+\usepackage{amsthm}
+    \makeatletter
+    \renewenvironment{proof}[1][\proofname]{\par
+        \pushQED{\qed}
+        \normalfont
+        \topsep6\p@\@plus6\p@ \trivlist
+        \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces
+    }{%
+        \popQED\endtrivlist\@endpefalse
+    }
+    \renewcommand{\proofname}{証明.}
+    \makeatother
+\newtheorem{proposition}{命題}
+\newtheorem{theorem}{定理}
+\newtheorem{lemma}{補題}
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+\newcommand{\combination}[2]{{}_{#1} \mathrm{C}_{#2}}
+
+\begin{document}
+
+1以上$N$以下の整数から重複を許して3つの数字をとる順列の個数は$N^3$個であり，
+これらは同様に確からしい。
+
+中央値が$K$となるような3数の組合せは，
+\begin{enumerate}
+    \renewcommand{\labelenumi}{\roman{enumi}).}
+    \item 1つが$K$
+    \item 1つが$K$以下
+    \item 1つが$K$以上
+\end{enumerate}
+となるときである。
+
+$K$が1個となるような組合せの個数は，
+$K$より小さい数と大きい数をひとつずつ選ぶ選び方の個数を考えると
+$(K - 1) (N - K)$通りであり，このそれぞれに対して，3数の並べ方は$3!$通りである。
+
+$K$が2個となるような組合せの個数は，
+$K$以外の数をひとつ選ぶ選び方の個数を考えると$(N - 1)$通りであり，
+このそれぞれに対して，3数の並べ方は$3$通りである。
+
+$K$が3個となるような組合せの個数は，1通りであり，
+3数の並べ方は1通りである。
+
+したがって，中央値が$K$となるような3数の並べ方は，
+\begin{equation}
+    (K - 1)(N - K) \times 3!
+    + (N - 1) \times 3
+    + 1 \times 1
+\end{equation}
+
+以上より，求める確率は
+\begin{equation}
+    \frac{
+    (K - 1)(N - K) \times 3!
+    + (N - 1) \times 3
+    + 1 \times 1
+    }{N^3}
+\end{equation}
+である。
+
+\end{document}
