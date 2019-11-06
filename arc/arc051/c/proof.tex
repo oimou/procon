@@ -33,7 +33,7 @@
 
 \begin{document}
 
-i所与の整数列に題意の操作を施したものを$N$次元ベクトルとして扱うことにする。
+所与の整数列に題意の操作を施したものを$N$次元列ベクトルとして扱うことにする。
 まず，数列$\{\vector{V}_n\}$を次のように定義する：
 \begin{equation}
     \vector{V}_0 = \left(
@@ -47,7 +47,7 @@ i所与の整数列に題意の操作を施したものを$N$次元ベクトル�
     \quad
     \vector{V}_{n+1} = f_A(\vector{V}_n) \quad (n \geq 0)
 \end{equation}
-ただし，$f_A(\vector{V})$は$\vector{V}$の最小の成分うち最も若い\footnote{ベクトルの成分を順に並べたときに番目の最も小さいもの}ものに$A$を掛けたベクトルを返す。
+ただし，$f_A(\vector{V})$は$\vector{V}$の最小の成分うち最も行番号の小さいものに$A$を掛けたベクトルを返す。
 我々は$\vector{V}_B$を求めたい。
 
 $A = 1$のときは題意の操作によって値が変化することはないから$\vector{V}_B = \vector{V}_0$である。
@@ -68,15 +68,15 @@ $a_1, a_2, \dots , a_N$はすべて正なので，$\vector{V}_0$の任意の成�
     \vector{v_{n+1}} = f(\vector{v}_n) \quad (n \geq 0)
 \end{equation}
 ただし，$f(\vector{v})$は$\vector{v}$の最小の成分のうち
-最も若いものに1を足したベクトルを返す\footnote{これは$A$進法におけるシフト演算や，$N$次元空間における軸に平行な距離1の移動と解釈することができる}。
+最も行番号の小さいものに1を足したベクトルを返す\footnote{これは$A$進法におけるシフト演算や，$N$次元空間における軸に平行な距離1の移動と解釈することができる}。
 したがって，$f(\vector{v})$によって$\vector{v}$の成分の小数部は変化しない。
 
 ここからは数列$\{\vector{v}_n\}$について考える。
 正実数$\log_A a_n$の整数部の表記を簡単にするために，$\log_A a_n$の整数部$\left\lfloor \log_A a_n \right\rfloor$を
 $g(a_n)$と表すことにする。
 
-$f(\vector{v})$の性質から明らかに，項番号を増やしていったときに
-$\vector{v}_{B_0}$ではじめて成分の整数部がすべて一致するようなある非負整数$B_0$が存在する\footnote{$B_0$回目から"ループ"が始まる}。
+\cref{lemma:loop2}より，項番号を増やしていったときに
+$\vector{v}_{B_0}$ではじめて成分の整数部がすべて一致するようなある非負整数$B_0$が存在し\footnote{$B_0$回目から"ループ"が始まる}，
 $\vector{v}_0$の成分のうち整数部が最大のものの整数部を$I$とおくと，
 \begin{equation}
     \label{vB0:1}
@@ -94,7 +94,7 @@ $\vector{v}_0$の成分のうち整数部が最大のものの整数部を$I$と
 \end{equation}
 である。
 
-ふたたび$f(\vector{v})$の性質から明らかに，
+\cref{lemma:loop1}より，
 \begin{equation}
     \label{Dk:1}
     \mbox{任意の非負整数$k$に対して
@@ -104,7 +104,7 @@ $\vector{v}_0$の成分のうち整数部が最大のものの整数部を$I$と
 
 \myparagraph{[1] $B > B_0$のとき}
 
-$B - B_0$を$N$で割った余り商を$b$，余りを$B_1$とおき\footnote{$b$は"ループ"の回数，$B_1$は最後のループが終わってから$B$回目に至るまでの操作回数}，
+$B - B_0$を$N$で割った余り商を$b$，余りを$B_1$とおき\footnote{$b$はループの回数，$B_1$は最後のループが終わってから$B$回目に至るまでの操作回数}，
 $\vector{v}_0$の成分の整数部をすべて$I$に置き換えたベクトルを$\vector{v}'_0$，
 すべての成分が1であるような$N$次元ベクトルを$\vector{u}$とおくと，
 \begin{alignat}{1}
@@ -142,5 +142,36 @@ $\vector{v}_0$の成分の整数部をすべて$I$に置き換えたベクトル
     \right) \right)
 \end{equation}
 である。
+
+\section{補題}
+
+記号の意味は本文中で用いられているものと同一である。
+
+\begin{itembox}[l]{ループが存在すること}
+    \begin{lemma}
+        \label{lemma:loop1}
+        任意の非負整数$k$に対して次が成り立つ：
+        \begin{quote}
+            ある整数$I_0$に対して$\vector{v}_k$の成分の整数部がすべて$I_0$ならば，
+            $\vector{v}_{k + N}$の成分の整数部はすべて$I_0 + 1$である。
+        \end{quote}
+    \end{lemma}
+\end{itembox}
+
+\begin{proof}
+    省略
+\end{proof}
+
+\begin{itembox}[l]{有限回の操作でループに突入すること}
+    \begin{lemma}
+        \label{lemma:loop2}
+        任意の$a_1, a_2, \dots, a_N$に対して，ある整数$M$が存在し，
+        $\vector{v}_M$の成分の整数部はすべて一致する。
+    \end{lemma}
+\end{itembox}
+
+\begin{proof}
+    省略
+\end{proof}
 
 \end{document}
