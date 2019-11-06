@@ -34,15 +34,30 @@
 \begin{screen}
     \begin{lemma}
         \label{lemma:1}
-        正整数$m, t$が互いに素であるならば，任意の整数$s, g\ (0 \leq s < m,\ 0 \leq g < m)$に対して，
+        $m, t$を正整数とする。
+        $m, t$が互いに素であるための必要十分条件は、
+        任意の整数$s, g\ (0 \leq s < m,\ 0 \leq g < m)$に対して
         \begin{equation}
             g \equiv s + jt \mod{m}
         \end{equation}
-        を満たすような非負整数$j$が存在する。
+        を満たすような非負整数$j$が存在することである。
     \end{lemma}
 \end{screen}
 
 \begin{proof}
+    最初に、十分性を示す。
+    $(g, s) = (0, 0),\ (g, s) = (1, 0)$を代入すると、
+    \begin{alignat}{2}
+        0 &\equiv j t  &\mod{m} \\
+        1 &\equiv j' t &\mod{m}
+    \end{alignat}
+    が成り立つから、ある整数$k$を用いて、
+    \begin{equation}
+        mk + (j' - j)t = 1
+    \end{equation}
+    が成り立つ。したがって、$m, t$は互いに素である。よって十分性が示された。
+
+    次に、必要性を示す。
     まず$s = 0$のときを示す。
 
     ある非負整数$j_0, j_1\ (0 \leq j_0 < j_1 < m)$に対して
@@ -75,7 +90,7 @@
     \begin{equation}
         g' \equiv s + jt \mod{m}
     \end{equation}
-    であり，しかも$0 \leq g' < m$であるから，\cref{lemma:1}が成り立つ。
+    であり，しかも$0 \leq g' < m$であるから，必要性が示された。
 \end{proof}
 
 % この逆も示したい

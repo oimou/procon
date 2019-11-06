@@ -8,4 +8,6 @@ using namespace std;
  * main
  */
 int main () {
+  int n;
+  char str[L], com[9];
 }
