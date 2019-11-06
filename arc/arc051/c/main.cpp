@@ -1,19 +1,12 @@
 #pragma GCC optimize ("O3")
 #pragma GCC target ("avx")
-#include <bits/stdc++.h>
+#include <cstdio>
+#include <cmath>
+#include <algorithm>
+#include <vector>
 
 using namespace std;
-using Item = tuple<int, double, int>;
 
-void sort (vector<Item> & a) {
-  sort(a.begin(), a.end(), [&](Item const & lh, Item const & rh) {
-    return (get<2>(lh) - get<2>(rh)) + (get<1>(lh) - get<1>(rh)) < 0;
-  });
-}
-
-/**
- *  剰余類
- */
 struct ResidueClass {
   using Integer = long long;
   Integer value;
@@ -59,33 +52,68 @@ struct ResidueClass {
   }
 };
 
+struct Item {
+  int x;
+  double log_x;
+  int g;
+  int cnt;
+};
+
+auto comp = [](auto & lh, auto & rh) {
+  return lh.log_x + lh.cnt < rh.log_x + rh.cnt;
+};
+
+void f_A (vector<Item> & a) {
+  min_element(a.begin(), a.end(), comp)->cnt++;
+}
+
+void print (vector<Item> & a, int A) {
+  if (A != 1)
+    sort(a.begin(), a.end(), comp);
+  else
+    sort(a.begin(), a.end(), [](auto & lh, auto & rh) {
+      return lh.x < rh.x;
+    });
+
+  for (auto item : a) {
+    ResidueClass r(item.x);
+    r = r * ResidueClass::fast_pow(ResidueClass(A), item.cnt);
+    printf("%d\n", r.value);
+  }
+}
+
 /**
  * main
  */
 int main () {
   int N, A, B;
-  cin >> N >> A >> B;
-
+  scanf("%d %d %d", &N, &A, &B);
   vector<Item> a(N);
   for (int i = 0; i < N; i++) {
-    int x; cin >> x;
-    a[i] = make_tuple(x, log(x) / log(A), 0);
+    int x; scanf("%d", &x);
+    double log_x = log(x) / log(A);
+    a[i] = Item{ x, log_x, (int) floor(log_x), 0 };
   }
 
-  sort(a);
-
-  if (A != 1) {
-    for (int i = 0; i < 1000; i++) {
-      get<2>(a[0])++;
-      sort(a);
-      // for (auto item : a) printf("%d %d\n", get<0>(item), get<2>(item)); printf("-\n");
-      for (auto item : a) printf("%d\t", get<2>(item)); printf("\n");
-    }
+  if (A == 1) {
+    print(a, A);
+    return 0;
   }
 
-  for (auto item : a) {
-    int m = get<2>(item);
-    ResidueClass A_(A), a_(get<0>(item));
-    printf("%d\n", (ResidueClass::fast_pow(A_, m) * a_).value);
+  int const I = max_element(a.begin(), a.end(), [](auto & lh, auto & rh) {
+    return lh.g < rh.g;
+  })->g;
+  int B0 = 0; for (auto item : a) B0 += I - item.g;
+  int const b  = (B - B0) / N;
+  int const B1 = (B - B0) % N;
+
+  if (B > B0) {
+    for (auto & item : a) item.cnt = - item.g + I + b;
+    for (int i = 0; i < B1; i++) f_A(a);
+  } else {
+    for (int i = 0; i < B; i++) f_A(a);
   }
+
+  print(a, A);
+  return 0;
 }
