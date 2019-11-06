@@ -7,6 +7,7 @@
     \crefname{proposition}{命題}{命題}
     \crefname{theorem}{定理}{定理}
     \crefname{lemma}{補題}{補題}
+    \crefname{definition}{定義}{定義}
     \crefmultiformat{lemma}{補題~#2#1#3}{,~#2#1#3}{, #2#1#3}{,~#2#1#3}
 \usepackage{autonum}
 \usepackage{amsthm}
@@ -24,20 +25,135 @@
 \newtheorem{proposition}{命題}
 \newtheorem{theorem}{定理}
 \newtheorem{lemma}{補題}
+\newtheorem{definition}{定義}
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
 \newcommand{\combination}[2]{{}_{#1} \mathrm{C}_{#2}}
 
+\def\vector#1{\mbox{\boldmath $#1$}}
+
 \begin{document}
 
-$A = 1$のときは題意の操作によって順番が変わることがないから，以下$A > 1$のときを考える。
-所与の整数列から2項$a_i, a_j\ (i \neq j)$を任意にとる。
-題意の操作を$B$回繰り返したとき，$a_i, a_j$の$A$倍された回数をそれぞれ$m, n$とおくと，
-\begin{alignat}{1}
-    & A^m a_i \leq A^n a_j \\
-    \Longleftrightarrow\ & m \log A + \log a_i \leq n \log A + \log a_j \\
-    \Longleftrightarrow\ & \left( \dfrac{\log a_j}{\log A} - \dfrac{\log a_i}{\log A} \right) + (n - m) \geq 0 \label{ineq:1}
-\end{alignat}
+$A = 1$のときは題意の操作によって成分が変化することはないから，以後$A > 1$のときを考える。
+
+所与の整数列に題意の操作を$n$回施したものを$N$次元ベクトルとして扱うことにする。
+次のことを定義しておく。
+\begin{itembox}[l]{並び方が等しいふたつのベクトル}
+    \begin{definition}
+        $N$次元ベクトル$\vector{x}, \vector{y}$に対して
+        次のことが成り立つとき，$\vector{x} \equiv \vector{y}$と表す：
+        \begin{quote}
+            任意の自然数$i, j\ (1 \leq i \leq N, 1 \leq j \leq N)$に対して，
+            $\vector{x}, \vector{y}$の$i$番目の成分をそれぞれ$x_i, y_i$，
+            $\vector{x}, \vector{y}$の$j$番目の成分をそれぞれ$x_j, y_j$とおくとき，
+            $x_i, x_j$の間の大小関係と$y_i, y_j$の間の大小関係が一致する。
+        \end{quote}
+    \end{definition}
+\end{itembox}
+
+まず，数列$\{\vector{V}_n\}$を次のように定義する：
+\begin{equation}
+    \vector{V}_0 = \left(
+        \begin{array}{c}
+            a_1 \\
+            a_2 \\
+            \vdots \\
+            a_N
+        \end{array}
+    \right),
+    \quad
+    \vector{V}_{n+1} = f_A(\vector{V}_n) \quad (n \geq 0)
+\end{equation}
+ただし，$f_A(\vector{V})$は$\vector{V}$の最小の成分うち最もはやい\footnotetext[0]{ベクトルの成分を順に並べたときに番目の最も小さいもの}ものに$A$を掛けたベクトルを返す。
+$a_1, a_2, \dots , a_N$はすべて正なので，$\vector{V}_0$の任意の成分について底を$A$とする対数をとることができる。
+そこで，数列$\{\vector{v}_n\}$を次のように定義する：
+\begin{equation}
+    \vector{v}_0 = \left(
+        \begin{array}{c}
+            \log_A a_1 \\
+            \log_A a_2 \\
+            \vdots \\
+            \log_A a_N
+        \end{array}
+    \right),
+    \quad
+    \vector{v_{n+1}} = f_1(\vector{v}_n) \quad (n \geq 0)
+\end{equation}
+ただし，$f_1(\vector{v})$は$\vector{v}$の最小の成分のうち最もはやい\footnotemark[0]ものに1を足したベクトルを返す。
+したがって，
+\begin{equation}
+    \mbox{$f_1(\vector{v})$によってベクトルの成分の小数部は変化しない} \label{f1:1}
+\end{equation}
+
+数列$\{\vector{v}_n\}$について考える。次のことを証明しておく。
+
+\begin{screen}
+    \begin{lemma}
+        \label{lemma:dec}
+        任意の自然数$i, j$に対して，
+        $\vector{v}_{i}$の成分の整数部がすべて一致しており，
+        $\vector{v}_{j}$の成分の整数部がすべて一致しているならば，
+        $\vector{v}_i \equiv \vector{v}_j$である。
+    \end{lemma}
+\end{screen}
+
+\begin{proof}
+    任意の自然数$k$に対して，
+    $\vector{v}_k$の成分の整数部がすべて一致しているならば，
+    $\vector{v}_k$の成分間の大小関係は成分の整数部にはよらず，小数部のみによって決まる。
+    このことと(\ref{f1:1})から，\cref{lemma:dec}が成り立つ。
+\end{proof}
+
+$f_1(\vector{v})$の性質から明らかに，項番号を増やしていったときに
+$\vector{v}_{B_0}$ではじめて成分の整数部がすべて一致するようなある非負整数$B_0$が存在する\footnote{$B_0$回目から"ループ"が始まる}。
+$\vector{v}_0$の成分のうち整数部が最大のものの整数部を$I$とおくと，
+\begin{equation}
+    \label{vB0:1}
+    \mbox{$\vector{v}_{B_0}$の成分の整数部はすべて$I$}
+\end{equation}
+である。ここで，
+\begin{equation}
+    I = \max \{ \left\lfloor \log_A a_1 \right\rfloor, \dots , \left\lfloor \log_A a_1 \right\rfloor \}
+\end{equation}
+であり，$B_0$を$I$を用いて表すと，
+\begin{equation}
+    B_0 = \sum_{k = 1}^{N} \left(
+        I - \left\lfloor \log_A a_k \right\rfloor
+    \right)
+\end{equation}
 である。
-したがって，項ごとにその$A$倍された回数を記録しておき，操作ごとに(\ref{ineq:1})を用いてソートしてゆけばよい。
+
+ふたたび$f_1(\vector{v})$の性質から明らかに，
+$\vector{v}_{B_0 + N}$の成分の整数部はすべて$I + 1$となる。
+同様に，
+\begin{equation}
+    \label{Dk:1}
+    \mbox{任意の非負整数$k$に対して
+    $\vector{v}_{B_0 + kN}$の成分の整数部はすべて$I + k$}
+\end{equation}
+が成り立つ。
+したがって，\cref{lemma:dec}により
+\begin{equation}
+    \vector{v}_{B_0} \equiv \vector{v}_{B_0 + kN} \quad (\mbox{$k$は任意の非負整数})
+\end{equation}
+である。
+
+\myparagraph{[1] $B > B_0$のとき}
+
+$B - B_0$を$N$で割った余り商を$b$，余りを$B_1$とおき\footnote{$b$は"ループ"の回数，$B_1$は最後のループが終わってから$B$回目に至るまでの操作回数}，
+$\vector{v}_0$の成分の整数部をすべて$I$に置き換えたベクトルを$\vector{v}'_0$とおくと，
+\begin{alignat}{1}
+    \vector{v}_B &= \vector{v}_{B_0 + bN + B_1} \\
+                 &= f_1^{B_1}( \vector{v}_{B_0 + bN} ) \\
+                 &= f_1^{B_1}( \vector{v}_{B_0} + b ) \quad (\because (\ref{Dk:1})) \\
+                 &= f_1^{B_1}( \vector{v}'_0 + b ) \quad (\because (\ref{vB0:1}))
+\end{alignat}
+であり，$\vector{v}_B$の各成分について底を$A$とする指数をとると$\vector{V}_B$を得る。
+
+\myparagraph{[2] $B \leq B_0$のとき}
+
+\begin{alignat}{1}
+    \vector{v}_B &= f_1^{B}(\vector{v}_0)
+\end{alignat}
+であり，$\vector{v}_B$の各成分について底を$A$とする指数をとると$\vector{V}_B$を得る。
 
 \end{document}
