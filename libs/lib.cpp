@@ -44,24 +44,29 @@ void print_array (T arr[], size_t n) {
 /**
  * Sieve of Eratosthenes
  */
-void sieve (bool is_prime[], Integer N) {
-  Integer sqrt_N = sqrt(N);
+template <size_t N>
+struct Sieve {
+  using Integer = int;
+  bool is_prime[N + 1];
+  constexpr Sieve() : is_prime() {
+    Integer sqrt_N = sqrt(N);
 
-  for (Integer i = 0; i <= N; i++) is_prime[i] = true;
+    for (Integer i = 0; i <= N; i++) is_prime[i] = true;
 
-  is_prime[1] = false;
-  is_prime[2] = true;
+    is_prime[1] = false;
+    is_prime[2] = true;
 
-  for (Integer p = 2; p <= sqrt_N; p++) {
-    if (is_prime[p] == false) continue;
+    for (Integer p = 2; p <= sqrt_N; p++) {
+      if (is_prime[p] == false) continue;
 
-    is_prime[p] = true;
+      is_prime[p] = true;
 
-    for (Integer i = p + 1; i <= N; i++) {
-      if (i % p == 0) is_prime[i] = false;
+      for (Integer i = p + 1; i <= N; i++) {
+        if (i % p == 0) is_prime[i] = false;
+      }
     }
   }
-}
+};
 
 /**
  *  剰余類
@@ -109,3 +114,16 @@ struct ResidueClass {
     return res;
   }
 };
+
+/**
+ * Legendre's theorem
+ * Count the number of p in prime factors of N!
+ */
+int legendre (int N, int p) {
+  int res = 0, k = 1, pk = p;
+  while (pk <= N) {
+    res += (int) N / pk;
+    pk *= p;
+  }
+  return res;
+}
