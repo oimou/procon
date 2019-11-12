@@ -1,0 +1,37 @@
+\documentclass{article}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{parskip}
+\usepackage{ascmac}
+\usepackage{amsmath,amssymb}
+\usepackage{cleveref}
+    \crefname{proposition}{命題}{命題}
+    \crefname{theorem}{定理}{定理}
+    \crefname{lemma}{補題}{補題}
+    \crefmultiformat{lemma}{補題~#2#1#3}{,~#2#1#3}{, #2#1#3}{,~#2#1#3}
+\usepackage{autonum}
+\usepackage{amsthm}
+    \makeatletter
+    \renewenvironment{proof}[1][\proofname]{\par
+        \pushQED{\qed}
+        \normalfont
+        \topsep6\p@\@plus6\p@ \trivlist
+        \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces
+    }{%
+        \popQED\endtrivlist\@endpefalse
+    }
+    \renewcommand{\proofname}{証明.}
+    \makeatother
+\newtheorem{proposition}{命題}
+\newtheorem{theorem}{定理}
+\newtheorem{lemma}{補題}
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+\newcommand{\combination}[2]{{}_{#1} \mathrm{C}_{#2}}
+
+\begin{document}
+
+数列$\{a_n\}$は昇順に整列されているものとする。
+$a_1$から$a_N$まで項番号の順に移動すれば移動距離が最小となり，このとき移動距離は$a_N - a_1$である。
+実際，これが最小値でないと仮定すると$a_1$から$a_N$まで移動距離$a_N - a_1$未満で
+移動できるような経路が存在することになるが，これは$a_1$から$a_N$までの距離の最小値が$a_N - a_1$であることに矛盾する。
+
+\end{document}
