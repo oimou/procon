@@ -1,0 +1,58 @@
+\documentclass{article}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{parskip}
+\usepackage{ascmac}
+\usepackage{amsmath,amssymb}
+\usepackage{cleveref}
+    \crefname{proposition}{命題}{命題}
+    \crefname{theorem}{定理}{定理}
+    \crefname{lemma}{補題}{補題}
+    \crefmultiformat{lemma}{補題~#2#1#3}{,~#2#1#3}{, #2#1#3}{,~#2#1#3}
+\usepackage{autonum}
+\usepackage{amsthm}
+    \makeatletter
+    \renewenvironment{proof}[1][\proofname]{\par
+        \pushQED{\qed}
+        \normalfont
+        \topsep6\p@\@plus6\p@ \trivlist
+        \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces
+    }{%
+        \popQED\endtrivlist\@endpefalse
+    }
+    \renewcommand{\proofname}{証明.}
+    \makeatother
+\usepackage[math]{cellspace}
+    \cellspacetoplimit 4pt
+    \cellspacebottomlimit 4pt
+\usepackage{array}
+\newtheorem{proposition}{命題}
+\newtheorem{theorem}{定理}
+\newtheorem{lemma}{補題}
+\newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
+\newcommand{\combination}[2]{{}_{#1} \mathrm{C}_{#2}}
+
+\begin{document}
+
+給料の額を$X$とおくと，$X$は次の確率分布に従う確率変数である。
+
+\begin{table}[hb]
+    \centering
+    \everymath{\displaystyle}
+    \begin{tabular}{|c|| *{4}{ >{$}Sc <{$}} |c|}
+        \hline
+        X & 10000 & 20000 & \dots & N \times 10000 & 計 \\
+        \hline
+        P & \frac{1}{N} & \frac{1}{N} & \dots & \frac{1}{N} & 1 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+したがって、求める期待値は
+\begin{alignat}{1}
+    E(X) &= \sum_{k = 1}^{N} \dfrac{k \times 10000}{N} \\
+         &= \dfrac{10000}{N} \times \dfrac{1}{2} N (N + 1) \\
+         &= 5000 (N + 1)
+\end{alignat}
+である。
+
+\end{document}
