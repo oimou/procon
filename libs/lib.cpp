@@ -5,6 +5,7 @@ using Integer = long long;
 
 /**
  * amazingly fast input
+ * NOTE: fread_unlocked does not work on macOS.
  */
 const int cm = 1 << 17;
 char cn[cm], * ci = cn + cm, ct;
