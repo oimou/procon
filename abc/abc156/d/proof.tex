@@ -29,4 +29,23 @@
 
 \begin{document}
 
+\section{計算手法に関して}
+
+$p$が素数のとき次が成り立つ。ただし、合同式の法は$p$であり、$x'$は$x$のモジュラ逆数である。
+\begin{alignat}{1}
+    \combination{n}{k}
+    &= \dfrac{n}{1} \cdot \dfrac{n - 1}{2} \cdot \dots \cdot \dfrac{n - k + 1}{k} \\
+    &\equiv
+        \dfrac{n}{1} \cdot \dfrac{n - 1}{2} \cdot \dots \cdot \dfrac{n - k + 1}{k}
+        \cdot (1 \cdot 1') (2 \cdot 2') \cdots (k \cdot k') \\
+    &=
+        \dfrac{n}{1} \cdot \dfrac{n - 1}{2} \cdot \dots \cdot \dfrac{n - k + 1}{k}
+        \cdot (1 \cdot 2 \cdot \dots \cdot k)(1' \cdot 2' \cdot \dots \cdot k') \\
+    &=
+        n (n - 1) \cdots (n - k + 1)
+        (1' \cdot 2' \cdot \dots \cdot k') \\
+    &=
+        n \cdot 1' \cdot (n - 1) \cdot 2' \cdot \dots \cdot (n - k + 1) \cdot k' \\
+\end{alignat}
+
 \end{document}
