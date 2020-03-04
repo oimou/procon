@@ -14,6 +14,7 @@ struct Node {
   // additional properties
   set<int> friends;
   set<int> blocks;
+  int size;
 };
 
 struct DisjointSet {
@@ -23,6 +24,7 @@ struct DisjointSet {
     NodePtr node = make_shared<Node>();
     nodes.insert(make_pair(i, node));
     node->parent = node;
+    node->size = 1;
   }
 
   void unite (int ix, int iy) {
@@ -30,14 +32,21 @@ struct DisjointSet {
     NodePtr y = nodes.at(iy);
     NodePtr xRoot = find(x);
     NodePtr yRoot = find(y);
+
+    if (xRoot == yRoot) return;
+
     xRoot->parent = yRoot;
+    yRoot->size = yRoot->size + xRoot->size;
   }
 
   NodePtr find (NodePtr x) {
     if (x->parent == x) {
       return x;
     } else {
-      return find(x->parent);
+      // with path compression
+      NodePtr root = find(x->parent);
+      x->parent = root;
+      return root;
     }
   }
 
@@ -88,23 +97,20 @@ int main () {
 
   for (size_t i = 1; i <= N; i++) {
     NodePtr node = djs.get_node(i);
+    NodePtr root = djs.find(node);
 
-    printf("%d:\n", i);
-
-    printf("  friends:");
-    for (int f : node->friends) {
-      printf(" %d", f);
-
-      if (djs.compare(i, f)) printf("*");
+    int n_friends = 0;
+    for (int fred : node->friends) {
+      if (djs.compare(i, fred)) n_friends++;
     }
-    printf("\n");
 
-    printf("  blocks:");
-    for (int b : node->blocks) {
-      printf(" %d", b);
-
-      if (djs.compare(i, b)) printf("*");
+    int n_blocks = 0;
+    for (int block : node->blocks) {
+      if (djs.compare(i, block)) n_blocks++;
     }
-    printf("\n");
+
+    int n = root->size - n_friends - n_blocks - 1;
+
+    printf("%d%c", n, (i == N) ? '\n' : ' ');
   }
 }
