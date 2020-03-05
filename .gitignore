@@ -8,3 +8,4 @@ program
 *.fls
 *.xdv
 /tmp
+.vscode
