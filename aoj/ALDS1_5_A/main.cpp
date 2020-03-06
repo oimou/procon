@@ -2,11 +2,27 @@
 
 using namespace std;
 
+bool dp[21][2001];
 bool solve (vector<int> & v, size_t idx, int m) {
-  if (m == 0) return true;
-  if (idx == v.size()) return false;
+  // already calculated?
+  if (dp[idx][m]) {
+    return dp[idx][m];
+  }
 
-  return solve(v, idx + 1, m - v[idx]) || solve(v, idx + 1, m);
+  // not calculated yet?
+  if (m == 0) {
+    dp[idx][m] = true;
+  } else if (idx == v.size()) {
+    dp[idx][m] = false;
+  } else if (solve(v, idx + 1, m)) {
+    dp[idx][m] = true;
+  } else if (solve(v, idx + 1, m - v[idx])) {
+    dp[idx][m] = true;
+  } else {
+    dp[idx][m] = false;
+  }
+
+  return dp[idx][m];
 }
 
 /**
