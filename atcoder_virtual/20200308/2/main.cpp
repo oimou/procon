@@ -2,8 +2,6 @@
 #pragma GCC target ("avx")
 #include <bits/stdc++.h>
 
-#define REP(i, a, b) for (int i = (a); i < (b); ++i)
-
 using namespace std;
 using ll = long long;
 
@@ -11,4 +9,7 @@ using ll = long long;
  * main
  */
 int main () {
+  ll N;
+  cin >> N;
+  cout << (ll)pow(floor(sqrt(N)), 2) << '\n';
 }

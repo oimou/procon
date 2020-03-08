@@ -2,13 +2,16 @@
 #pragma GCC target ("avx")
 #include <bits/stdc++.h>
 
-#define REP(i, a, b) for (int i = (a); i < (b); ++i)
-
 using namespace std;
-using ll = long long;
 
 /**
  * main
  */
 int main () {
+  string l1, l2;
+  cin >> l1 >> l2;
+
+  reverse(l1.begin(), l1.end());
+
+  cout << ((l1 == l2) ? "YES" : "NO") << '\n';
 }
