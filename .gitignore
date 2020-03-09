@@ -9,3 +9,5 @@ program
 *.xdv
 /tmp
 .vscode
+main
+*.dSYM
