@@ -19,7 +19,8 @@
     }{%
         \popQED\endtrivlist\@endpefalse
     }
-    \renewcommand{\proofname}{証明.}
+    \renewcommand{\proofname}{\underline{証明.}}
+    \renewcommand{\qedsymbol}{$\blacksquare$}
     \makeatother
 \usepackage{listings}
 \newtheorem{proposition}{命題}
