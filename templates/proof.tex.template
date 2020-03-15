@@ -21,11 +21,15 @@
     }
     \renewcommand{\proofname}{証明.}
     \makeatother
+\usepackage{listings}
 \newtheorem{proposition}{命題}
 \newtheorem{theorem}{定理}
 \newtheorem{lemma}{補題}
 \newcommand{\myparagraph}[1]{\paragraph{#1}\mbox{}\\}
 \newcommand{\combination}[2]{{}_{#1} \mathrm{C}_{#2}}
+\lstnewenvironment{pseudo}[1][mathescape, frame=lines, xleftmargin=15pt, xrightmargin=15pt]{%
+    \lstset{numbers=left, numberstyle=\tiny, #1}
+}{}
 
 \begin{document}
 

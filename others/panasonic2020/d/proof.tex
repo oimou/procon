@@ -1,0 +1,116 @@
+\documentclass{article}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{parskip}
+\usepackage{ascmac}
+\usepackage{amsmath,amssymb}
+\usepackage{cleveref}
+    \crefname{proposition}{命題}{命題}
+    \crefname{theorem}{定理}{定理}
+    \crefname{lemma}{補題}{補題}
+    \crefmultiformat{lemma}{補題~#2#1#3}{,~#2#1#3}{, #2#1#3}{,~#2#1#3}
+\usepackage{autonum}
+\usepackage{amsthm}
+    \makeatletter
+    \renewenvironment{proof}[1][\proofname]{\par
+        \pushQED{\qed}
+        \normalfont
+        \topsep6\p@\@plus6\p@ \trivlist
+        \item[\hskip\labelsep{\bfseries #1}\@addpunct{\bfseries}]\ignorespaces
+    }{%
+        \popQED\endtrivlist\@endpefalse
+    }
+    \renewcommand{\proofname}{\underline{証明.}}
+    \renewcommand{\qedsymbol}{$\blacksquare$}
+    \makeatother
+\usepackage{listings}
+\newtheorem{proposition}{命題}
+\newtheorem{theorem}{定理}
+\newtheorem{lemma}{補題}
+\newcommand{\myparagraph}[1]{\paragraph{#1}}
+\newcommand{\combination}[2]{{}_{#1} \mathrm{C}_{#2}}
+\lstnewenvironment{pseudo}[1][mathescape, frame=lines, xleftmargin=15pt, xrightmargin=15pt]{%
+    \lstset{numbers=left, numberstyle=\tiny, #1}
+}{}
+
+\begin{document}
+
+まず、文字列$s = s_1 s_2 \dots s_N$が標準形であることと、$s$に関する次の条件$P(s)$は同値である。
+
+\begin{enumerate}
+    \renewcommand{\labelenumi}{\roman{enumi}).}
+    \item $s_1$ = "a"
+    \item $s_k \leq \max\{s_1, \dots, s_{k-1}\} + 1$ \quad for $\forall k,\ 2 \leq k \leq N$
+\end{enumerate}
+
+\begin{proof}
+    $N,\ N \geq 1$に対する条件$Q(N)$を次のように定義する。
+    \begin{quote}
+        $N$文字の文字列$s$を任意にとると、
+        $s$が標準形であることと$P(s)$は同値である
+    \end{quote}
+
+    任意の$N,\ N \geq 1$に対して$Q(N)$が成り立つことを数学的帰納法によって示す。
+
+    \textbf{[1]}
+    1文字の標準形は$s = s_1$ = "a" なので$Q(1)$が成り立つ。
+
+    \textbf{[2]}
+    任意の$N,\ N \geq 1$に対して$Q(N)$の成立を仮定する。
+    $N+1$文字の文字列$s$を任意にとる。
+
+    \leftskip=15pt
+        \textbf{[2-1]}
+        $P(s)$の成立を仮定する。
+        $Q(N)$が成り立つから、$s$の末尾を除いた文字列
+        \begin{equation}
+            s_1 s_2 \dots s_{N}
+        \end{equation}
+        は標準形である。
+        よって、$s$が標準形でないと仮定すると、$s_{N+1}$を$s_{N+1}' (< s_{N+1})$に変えた文字列$s'$で
+        $s' \neq s$かつ$s$と同型な標準形であるようなものが存在することになる。
+        ところが、ii)が成り立つことからそのような文字列$s'$は存在しない。
+        したがって、$s$は標準形である。
+
+        \textbf{[2-2]}
+        $s$が標準形であると仮定する。$s$は明らかにi)を満たす。
+        ここで$s$がii)を満たさないと仮定すると、$Q(N)$から
+        \begin{equation}
+            s_{N+1} > \max\{s_1, \dots, s_N\} + 1
+        \end{equation}
+        が従うが、$s$の$N+1$文字目を$\max\{s_1, \dots, s_N\} + 1$に変えた文字列を$s'$とおくと
+        $s'$は$s' \neq s$かつ$s$と同型な標準形であるから、
+        $s$が標準形であることに矛盾する。したがって$s$はii)を満たす。
+
+    \leftskip=0pt
+
+    以上[2-1][2-2]より、$Q(N+1)$が成り立つ。
+
+    以上[1][2]より、任意の$N,\ N \geq 1$に対して$Q(N)$が成り立つ。
+\end{proof}
+
+\newpage
+
+つぎに、文字列を要素とする配列$S_N$を次の擬似コードで定義する。
+
+$N = 1$のとき
+\begin{pseudo}
+$S_N$ = { "a" }
+\end{pseudo}
+
+$N > 1$のとき
+\begin{pseudo}
+$S_{N+1}$ = {}
+
+for $s$ in $S_N$:
+    $c_{max}$ = $\max\{s_1, \dots, s_N\}$
+
+    for $c$ from "a" to $c_{max} + 1$:
+        $t$ = concat($s$, $c$)
+        push $t$ to $S_{N+1}$
+\end{pseudo}
+
+$N$に関する数学的帰納法のようなもの\footnote{擬似コードで定義された対象について厳密に論じる方法がよくわからない}によって、任意の$N,\ N \geq 1$に対して$S_N$の要素は辞書順で昇順に整列していることがわかる。
+また、$t$の作り方から明らかに$t$は標準形である。
+したがって、$S_N$は$N$文字の標準形の文字列すべてが辞書順で昇順に整列した配列である。
+
+\end{document}

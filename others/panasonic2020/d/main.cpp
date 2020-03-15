@@ -22,10 +22,9 @@ int main () {
     for (Series & s : prev) {
       int max_d = *max_element(s.begin(), s.end());
 
-      REP(d, 0, max_d + 2) {
-        Series t(s.size());
+      for (int d = 0; d <= max_d + 1; d++) {
+        Series t(s);
 
-        copy(s.begin(), s.end(), t.begin());
         t.push_back(d);
         curr.push_back(t);
       }
