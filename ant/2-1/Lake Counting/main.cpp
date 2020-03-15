@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 #include <queue>
 #include <utility>
 #define REP(i, a, b) for (int i = (a); i < (b); ++i)
@@ -13,9 +14,10 @@ int N;
 int M;
 bool is_water[MAX_N][MAX_M];
 
-void bfs (int i0, int j0) {
+void xfs (int i0, int j0) {
   queue< pair<int, int> > q;
 
+  is_water[i0][j0] = false;
   q.push(make_pair(i0, j0));
 
   while (!q.empty()) {
@@ -24,14 +26,13 @@ void bfs (int i0, int j0) {
     int i = p.first;
     int j = p.second;
 
-    is_water[i][j] = false;
-
     REP(di, -1, 2) {
       REP(dj, -1, 2) {
         int s = i + di;
         int t = j + dj;
 
         if (0 <= s && s < N && 0 <= t && t < M && is_water[s][t]) {
+          is_water[s][t] = false; // mark it as visited when pushing; otherwise, space complexity bursts and you die.
           q.push(make_pair(s, t));
         }
       }
@@ -46,7 +47,7 @@ void solve () {
     REP(j, 0, M) {
       if (is_water[i][j]) {
         cnt++;
-        bfs(i, j);
+        xfs(i, j);
       }
     }
   }
