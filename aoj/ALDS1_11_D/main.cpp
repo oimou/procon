@@ -24,7 +24,10 @@ void dfs (UserPtr user0, int color) {
     user->color = color;
 
     for (const UserPtr fred : user->friends) {
-      if (fred->color == -1) S.push(fred);
+      if (fred->color == -1) {
+        fred->color = color;
+        S.push(fred);
+      }
     }
   }
 }
