@@ -46,8 +46,11 @@ int prim () {
     color[i] = WHITE;
   }
 
+  // the first explorer is #0
+  min_weight_to[0] = 0;
+
   for (int i = 0;; i++) {
-    explorer = (i == 0) ? 0 : -1;
+    explorer = -1;
 
     // choose an explorer from among unconquered nodes
     int min_weight = INFTY;
