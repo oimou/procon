@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-using Integer = long long;
+using ll = long long;
 
 /**
  * amazingly fast input
@@ -47,22 +47,22 @@ void print_array (T arr[], size_t n) {
  */
 template <size_t N>
 struct Sieve {
-  using Integer = int;
+  using ll = int;
   bool is_prime[N + 1];
   constexpr Sieve() : is_prime() {
-    Integer sqrt_N = sqrt(N);
+    ll sqrt_N = sqrt(N);
 
-    for (Integer i = 0; i <= N; i++) is_prime[i] = true;
+    for (ll i = 0; i <= N; i++) is_prime[i] = true;
 
     is_prime[1] = false;
     is_prime[2] = true;
 
-    for (Integer p = 2; p <= sqrt_N; p++) {
+    for (ll p = 2; p <= sqrt_N; p++) {
       if (is_prime[p] == false) continue;
 
       is_prime[p] = true;
 
-      for (Integer i = p + 1; i <= N; i++) {
+      for (ll i = p + 1; i <= N; i++) {
         if (i % p == 0) is_prime[i] = false;
       }
     }
@@ -70,13 +70,48 @@ struct Sieve {
 };
 
 /**
+ * 素数判定
+ */
+bool is_prime (ll n) {
+  if (n == 1) return false;
+  if (n == 2) return true;
+
+  ll sqrtn = sqrt(n);
+
+  for (ll i = 2; i < sqrtn + 1; i++) {
+    if (n % i == 0) return false;
+  }
+
+  return true;
+}
+
+/**
+ * Factorization
+ */
+set<ll> get_prime_factors (ll n) {
+  ll sqrtn = sqrt(n);
+  set<ll> prime_factors;
+
+  for (ll i = 1; i < sqrtn + 1; i++) {
+    if (n % i != 0) continue;
+
+    ll I = n / i;
+
+    if (is_prime(i)) prime_factors.insert(i);
+    if (is_prime(I)) prime_factors.insert(I);
+  }
+
+  return prime_factors;
+}
+
+/**
  *  剰余類
  */
 struct ResidueClass {
-  Integer value;
-  Integer M = 1e9 + 7;
+  ll value;
+  ll M = 1e9 + 7;
 
-  ResidueClass (Integer x) {
+  ResidueClass (ll x) {
     value = positive_mod(x, M);
   }
 
@@ -103,14 +138,14 @@ struct ResidueClass {
     return res;
   }
 
-  static ResidueClass fast_pow (ResidueClass x, Integer n) {
+  static ResidueClass fast_pow (ResidueClass x, ll n) {
     if (n == 0) return ResidueClass(1);
     if (n % 2 == 0) return fast_pow(x * x, n / 2);
     else return x * fast_pow(x, n - 1);
   }
 
-  static Integer positive_mod (Integer a, Integer b) {
-    Integer res = a % b;
+  static ll positive_mod (ll a, ll b) {
+    ll res = a % b;
     if (res < 0) res += b;
     return res;
   }
